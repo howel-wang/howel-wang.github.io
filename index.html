@@ -472,7 +472,7 @@
                     <div>
                         <div class="food-header">
                             <span class="food-name">沙漠盖饭</span>
-                            <a href="https://www.dianping.com/search/keyword/399/0_响沙湾 餐厅" target="_blank" class="dianping-link">大众点评</a>
+                            <a href="javascript:void(0)" onclick="goDianping('响沙湾 餐厅', 'https://www.dianping.com/search/keyword/399/0_响沙湾 餐厅')" class="dianping-link">大众点评</a>
                         </div>
                         <p class="food-desc">响沙湾景区内餐厅。牛肉盖饭分量足，价格合理，味道有惊喜。</p>
                     </div>
@@ -510,7 +510,7 @@
                     <div>
                         <div class="food-header">
                             <span class="food-name">老绥元烧麦</span>
-                            <a href="https://www.dianping.com/search/keyword/15/0_老绥元烧麦" target="_blank" class="dianping-link">大众点评</a>
+                            <a href="javascript:void(0)" onclick="goDianping('老绥元烧麦', 'https://www.dianping.com/search/keyword/15/0_老绥元烧麦')" class="dianping-link">大众点评</a>
                         </div>
                         <p class="food-desc">内蒙古连锁名店。羊肉大葱烧麦现包现蒸，是早餐首选。</p>
                     </div>
@@ -519,7 +519,7 @@
                     <div>
                         <div class="food-header">
                             <span class="food-name">黄旗手把肉</span>
-                            <a href="https://www.dianping.com/search/keyword/398/0_黄旗手把肉" target="_blank" class="dianping-link">大众点评</a>
+                            <a href="javascript:void(0)" onclick="goDianping('黄旗手把肉', 'https://www.dianping.com/search/keyword/398/0_黄旗手把肉')" class="dianping-link">大众点评</a>
                         </div>
                         <p class="food-desc">在乌兰察布周边或返程途中可尝试。原汁原味的羊肉吃法。</p>
                     </div>
@@ -539,6 +539,24 @@
 </div>
 
 <script>
+    function goDianping(keyword, webUrl) {
+        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (isMobile) {
+            // Use the searchshoplist scheme which is standard for Dazhong Dianping
+            const scheme = `dianping://searchshoplist?keyword=${encodeURIComponent(keyword)}`;
+
+            // Try to open the app
+            window.location.href = scheme;
+
+            // Fallback to web URL after 1.5 seconds if the app didn't open
+            setTimeout(() => {
+                window.location.href = webUrl;
+            }, 1500);
+        } else {
+            window.open(webUrl, '_blank');
+        }
+    }
+
     function showDay(dayNumber) {
         // Update tabs
         const tabs = document.querySelectorAll('.tab');
@@ -566,6 +584,11 @@
         }
     }
 </script>
-
+</body>
+</html>
+oth' });
+        }
+    }
+</script>
 </body>
 </html>
