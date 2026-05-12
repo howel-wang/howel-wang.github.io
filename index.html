@@ -1,1007 +1,571 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI 基础设施交易研究框架</title>
-  <style>
-    :root {
-      --bg: #f4f6f8;
-      --panel: #ffffff;
-      --panel-2: #f9fbfd;
-      --ink: #16202d;
-      --muted: #657386;
-      --line: #dde5ee;
-      --line-strong: #c8d3df;
-      --brand: #047c75;
-      --brand-2: #2563eb;
-      --accent: #c76b16;
-      --danger: #b42318;
-      --good: #167341;
-      --shadow: 0 18px 46px rgba(22, 32, 45, 0.10);
-      --shadow-soft: 0 8px 20px rgba(22, 32, 45, 0.06);
-      --radius: 8px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京-内蒙古自驾游计划 (5.27 - 5.31)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #0077b6;
+            --secondary-green: #52b788;
+            --accent-orange: #fb8500;
+            --volcano-gray: #4a4e69;
+            --desert-yellow: #ffb703;
+            --bg-light: #f8f9fa;
+            --text-dark: #2b2d42;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background:
-        linear-gradient(180deg, rgba(4, 124, 117, 0.10), rgba(37, 99, 235, 0.035) 320px, transparent 620px),
-        linear-gradient(90deg, rgba(22, 32, 45, 0.035) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(22, 32, 45, 0.035) 1px, transparent 1px),
-        var(--bg);
-      background-size: auto, 44px 44px, 44px 44px, auto;
-      letter-spacing: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    button, input, select { font: inherit; }
-    button { cursor: pointer; }
-    ::selection { background: rgba(4, 124, 117, 0.18); }
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
 
-    .shell { max-width: 1460px; margin: 0 auto; padding: 0 28px 58px; }
-    .hero {
-      min-height: 82vh;
-      display: grid;
-      grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
-      gap: 42px;
-      align-items: center;
-      padding: 54px 0 30px;
-    }
+        header {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1527815020392-5896a9394600?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #075f5a;
-      font-weight: 800;
-      font-size: 13px;
-      text-transform: uppercase;
-      padding: 7px 10px;
-      border: 1px solid rgba(4, 124, 117, 0.18);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      box-shadow: var(--shadow-soft);
-    }
-    .dot { width: 9px; height: 9px; background: var(--brand); border-radius: 99px; }
-    h1 {
-      margin: 22px 0 20px;
-      font-size: clamp(44px, 6.7vw, 84px);
-      line-height: 0.98;
-      letter-spacing: 0;
-      max-width: 930px;
-      text-wrap: balance;
-    }
-    .lead {
-      max-width: 820px;
-      color: #354256;
-      font-size: 19px;
-      line-height: 1.72;
-      margin: 0 0 28px;
-    }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-    .btn {
-      border: 1px solid var(--line);
-      background: var(--panel);
-      color: var(--ink);
-      border-radius: 7px;
-      padding: 12px 15px;
-      font-weight: 750;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: var(--shadow-soft);
-      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
-    }
-    .btn.primary {
-      background: linear-gradient(135deg, #16202d, #26364a);
-      color: white;
-      border-color: #16202d;
-    }
-    .btn:hover { transform: translateY(-1px); border-color: var(--line-strong); box-shadow: 0 14px 28px rgba(22, 32, 45, 0.10); }
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
 
-    .hero-visual {
-      min-height: 520px;
-      border: 1px solid rgba(22, 32, 45, 0.10);
-      border-radius: 8px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.62)),
-        linear-gradient(135deg, rgba(37, 99, 235, 0.12), transparent 42%),
-        linear-gradient(315deg, rgba(199, 107, 22, 0.16), transparent 46%),
-        #eef4f6;
-      box-shadow: var(--shadow);
-      padding: 22px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-visual::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(22, 32, 45, 0.05) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(22, 32, 45, 0.05) 1px, transparent 1px);
-      background-size: 28px 28px;
-      mask-image: linear-gradient(180deg, black, transparent 78%);
-      pointer-events: none;
-    }
-    .visual-head {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(22, 32, 45, 0.09);
-    }
-    .visual-head b { font-size: 15px; }
-    .visual-head span { color: var(--muted); font-size: 12px; font-weight: 750; }
-    .stack-map {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      gap: 12px;
-      min-height: 315px;
-      align-content: center;
-    }
-    .map-row {
-      display: grid;
-      grid-template-columns: 92px 1fr 58px;
-      gap: 12px;
-      align-items: center;
-      padding: 14px;
-      border: 1px solid rgba(22, 32, 45, 0.10);
-      border-radius: 7px;
-      background: rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 18px rgba(22, 32, 45, 0.05);
-    }
-    .map-row b { font-size: 14px; }
-    .bar { height: 9px; background: #d9e1ea; border-radius: 99px; overflow: hidden; }
-    .bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--brand-2), var(--accent)); }
-    .score { font-weight: 900; text-align: right; font-variant-numeric: tabular-nums; }
-    .hero-note {
-      position: absolute;
-      bottom: 22px;
-      left: 24px;
-      right: 24px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-    .mini {
-      background: rgba(22, 32, 45, 0.92);
-      color: white;
-      border-radius: 7px;
-      padding: 12px;
-      min-height: 82px;
-      box-shadow: 0 12px 24px rgba(22, 32, 45, 0.16);
-    }
-    .mini small { display: block; color: #bfc7cf; margin-bottom: 8px; }
-    .mini strong { font-size: 18px; }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
 
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 11px 0;
-      background: rgba(244, 246, 248, 0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-      scrollbar-width: thin;
-    }
-    .nav a {
-      white-space: nowrap;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 9px 11px;
-      border-radius: 7px;
-      font-weight: 750;
-      font-size: 14px;
-      transition: background 160ms ease, color 160ms ease;
-    }
-    .nav a:hover, .nav a.active { color: var(--ink); background: white; box-shadow: var(--shadow-soft); }
+        .container {
+            max-width: 900px;
+            margin: -50px auto 40px;
+            padding: 0 20px;
+        }
 
-    section { padding: 44px 0 12px; scroll-margin-top: 72px; }
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 22px;
-      align-items: end;
-      margin-bottom: 18px;
-    }
-    h2 { margin: 0; font-size: 31px; letter-spacing: 0; text-wrap: balance; }
-    .section-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.55; max-width: 760px; }
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
 
-    .grid { display: grid; gap: 16px; }
-    .grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow-soft);
-      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
-    }
-    .card:hover { transform: translateY(-1px); border-color: var(--line-strong); box-shadow: 0 16px 32px rgba(22, 32, 45, 0.08); }
-    .card h3 { margin: 0 0 10px; font-size: 18px; }
-    .card p { margin: 0; color: var(--muted); line-height: 1.58; }
-    .metric { display: flex; align-items: baseline; gap: 8px; margin: 8px 0; }
-    .metric strong { font-size: 32px; }
-    .tagline { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .tag {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 12px;
-      color: #425065;
-      background: var(--panel-2);
-      font-weight: 700;
-    }
-    .tag.hot { color: var(--danger); border-color: rgba(185, 28, 28, 0.25); background: rgba(185, 28, 28, 0.06); }
-    .tag.good { color: var(--good); border-color: rgba(22, 101, 52, 0.24); background: rgba(22, 101, 52, 0.06); }
+        .tab {
+            flex: 1;
+            padding: 15px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border-bottom: 3px solid transparent;
+            font-size: 0.9rem;
+        }
 
-    .toolbar {
-      display: grid;
-      grid-template-columns: minmax(240px, 1fr) 190px 160px;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .control {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      background: white;
-      color: var(--ink);
-      padding: 12px 13px;
-      outline: none;
-      box-shadow: 0 1px 0 rgba(22, 32, 45, 0.03);
-      transition: border-color 160ms ease, box-shadow 160ms ease;
-    }
-    .control:focus { border-color: rgba(4, 124, 117, 0.55); box-shadow: 0 0 0 4px rgba(4, 124, 117, 0.10); }
+        .tab.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+            background-color: #f0f7ff;
+        }
 
-    .table-wrap {
-      overflow-x: auto;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-    }
-    table { width: 100%; border-collapse: collapse; min-width: 980px; }
-    th, td { padding: 14px 15px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-    th {
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      font-size: 12px;
-      color: #526075;
-      background: #f7fafc;
-      text-transform: uppercase;
-      user-select: none;
-      box-shadow: inset 0 -1px 0 var(--line);
-    }
-    th.sortable { cursor: pointer; }
-    td { font-size: 14px; line-height: 1.48; }
-    tbody tr:nth-child(even) td { background: #fbfcfd; }
-    tr:hover td { background: #f3f8f7; }
-    .theme-cell { font-weight: 850; min-width: 190px; }
-    #radarTable td:first-child,
-    #radarTable th:first-child {
-      width: 76px;
-      text-align: center;
-    }
-    .score-pill {
-      display: inline-flex;
-      min-width: 46px;
-      justify-content: center;
-      padding: 5px 9px;
-      border-radius: 999px;
-      color: #ffffff;
-      background: #0f172a;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      font-weight: 900;
-      font-variant-numeric: tabular-nums;
-      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
-      box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-        0 8px 16px rgba(15, 23, 42, 0.18);
-    }
-    #radarTable .score-pill {
-      min-width: 52px;
-      font-size: 14px;
-      background: linear-gradient(135deg, #07111f, #12315f);
-    }
-    .asset { color: var(--brand-2); font-weight: 800; }
+        .day-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
 
-    .workspace {
-      display: grid;
-      grid-template-columns: 310px minmax(0, 1fr);
-      gap: 16px;
-      align-items: start;
-    }
-    .topic-list {
-      display: grid;
-      gap: 8px;
-      position: sticky;
-      top: 66px;
-    }
-    .topic-btn {
-      text-align: left;
-      border: 1px solid var(--line);
-      background: white;
-      border-radius: 7px;
-      padding: 13px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-      align-items: center;
-      box-shadow: var(--shadow-soft);
-      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
-    }
-    .topic-btn:hover { transform: translateY(-1px); border-color: var(--line-strong); }
-    .topic-btn.active {
-      border-color: rgba(4, 124, 117, 0.55);
-      box-shadow: inset 4px 0 0 var(--brand), 0 16px 32px rgba(4, 124, 117, 0.10);
-      background: linear-gradient(90deg, rgba(4, 124, 117, 0.06), #fff 42%);
-    }
-    .topic-btn span { color: var(--muted); font-size: 13px; grid-column: 1 / -1; }
-    .detail {
-      background:
-        linear-gradient(180deg, rgba(4, 124, 117, 0.045), transparent 160px),
-        white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      min-height: 620px;
-      padding: 24px;
-    }
-    .detail h3 { font-size: 26px; margin: 0 0 8px; }
-    .detail .conclusion { color: #334155; line-height: 1.68; font-size: 17px; margin: 0 0 16px; }
-    .detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .info {
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      padding: 15px;
-      background: rgba(249, 251, 253, 0.86);
-    }
-    .info b { display: block; margin-bottom: 7px; color: #233146; }
-    .info p, .info li { color: var(--muted); line-height: 1.55; margin: 0; }
-    .info ul { margin: 0; padding-left: 18px; }
+        .day-content.active {
+            display: block;
+        }
 
-    .timeline {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .timebox {
-      border-top: 3px solid var(--brand);
-      background: #f8fbfc;
-      padding: 13px;
-      border-radius: 0 0 7px 7px;
-      box-shadow: inset 0 0 0 1px var(--line);
-    }
-    .timebox strong { display: block; margin-bottom: 6px; }
-    .timebox span { color: var(--muted); font-size: 13px; line-height: 1.45; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .radar-panel {
-      display: grid;
-      grid-template-columns: minmax(310px, 0.78fr) minmax(0, 1.22fr);
-      gap: 16px;
-      align-items: center;
-    }
-    .radar-box {
-      min-height: 530px;
-      display: grid;
-      place-items: center;
-      background:
-        linear-gradient(180deg, #fff, #f8fbfc);
-    }
-    .radar-legend { display: grid; gap: 10px; }
-    .legend-item {
-      display: grid;
-      grid-template-columns: 42px 1fr auto;
-      gap: 10px;
-      align-items: center;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      padding: 11px;
-      box-shadow: 0 6px 14px rgba(22, 32, 45, 0.04);
-    }
-    .legend-item strong { font-size: 14px; }
-    .legend-item span { color: var(--muted); font-size: 12px; }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+        }
 
-    .compact-list { display: grid; gap: 10px; }
-    .risk {
-      border-left: 4px solid var(--danger);
-      background: white;
-      border-radius: 7px;
-      padding: 15px 16px;
-      border-top: 1px solid var(--line);
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-    }
-    .risk b { display: block; margin-bottom: 4px; }
-    .risk p { margin: 0; color: var(--muted); line-height: 1.55; }
+        .card-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
 
-    .footer {
-      margin-top: 34px;
-      border-top: 1px solid var(--line);
-      padding-top: 18px;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 13px;
-    }
+        .card-title i {
+            margin-right: 12px;
+        }
 
-    @media (max-width: 1060px) {
-      .hero, .workspace, .radar-panel { grid-template-columns: 1fr; }
-      .hero { min-height: auto; }
-      .topic-list { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .detail-grid, .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 720px) {
-      .shell { padding: 0 14px 42px; }
-      h1 { font-size: 43px; }
-      .hero { padding-top: 30px; gap: 28px; }
-      .lead { font-size: 17px; line-height: 1.65; }
-      .hero-visual { min-height: 560px; padding: 14px; }
-      .visual-head { margin-bottom: 12px; }
-      .hero-note { grid-template-columns: 1fr; position: static; margin-top: 14px; }
-      .map-row { grid-template-columns: 76px 1fr 44px; padding: 11px; }
-      .toolbar { grid-template-columns: 1fr; }
-      .topic-list { grid-template-columns: 1fr; }
-      .timeline { grid-template-columns: 1fr; }
-      .section-head { display: block; }
-      .detail { padding: 18px; }
-      th, td { padding: 12px; }
-    }
-  </style>
+        .route-info {
+            display: flex;
+            justify-content: space-around;
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .route-info div span {
+            display: block;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .route-info div strong {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .attractions ul, .tips ul {
+            list-style: none;
+        }
+
+        .attractions li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+        }
+
+        .attractions li::before {
+            content: "\f3c5";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent-orange);
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .food-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .food-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+        }
+
+        .food-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .food-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .dianping-link {
+            display: inline-flex;
+            align-items: center;
+            background: #ff5500;
+            color: white;
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            transition: opacity 0.2s;
+        }
+
+        .dianping-link:hover {
+            opacity: 0.8;
+        }
+
+        .food-desc {
+            font-size: 0.9rem;
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        .review-tag {
+            display: inline-block;
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .fab-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .nav-tabs { top: 10px; }
+            .tab { padding: 12px 2px; font-size: 0.8rem; }
+            .route-info { flex-direction: column; gap: 10px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="shell">
-    <header class="hero" id="top">
-      <div>
-        <div class="eyebrow"><span class="dot"></span> 2026-05-10 · 交易研究框架 · 非投资建议</div>
-        <h1>AI 交易从芯片叙事转向基础设施瓶颈</h1>
-        <p class="lead">这份交互页把报告重构为可操作的研究台：先看 Top 5 转折点，再按“分数、拥挤度、催化剂、失效条件”筛选；点击主题可查看证据链、交易结构、对冲方式和需要继续验证的数据。</p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#opportunities">查看 Top 5</a>
-          <a class="btn" href="#radar">打开雷达表</a>
-          <a class="btn" href="#risk">查看最大风险</a>
+
+<header>
+    <h1>内蒙古火山沙漠大环线</h1>
+    <p>2026.05.27 - 05.31 自驾路线指南</p>
+</header>
+
+<div class="container">
+    <div class="nav-tabs">
+        <div class="tab active" onclick="showDay(1)">Day 1<br>乌兰察布</div>
+        <div class="tab" onclick="showDay(2)">Day 2<br>包头</div>
+        <div class="tab" onclick="showDay(3)">Day 3<br>乌海</div>
+        <div class="tab" onclick="showDay(4)">Day 4<br>鄂尔多斯</div>
+        <div class="tab" onclick="showDay(5)">Day 5<br>北京</div>
+    </div>
+
+    <!-- Day 1 -->
+    <div id="day1" class="day-content active">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-route"></i> 路线概览</div>
+            <div class="route-info">
+                <div><span>起点</span><strong>北京</strong></div>
+                <div><span>终点</span><strong>乌兰察布</strong></div>
+                <div><span>里程</span><strong>~410 km</strong></div>
+                <div><span>建议出发</span><strong>早 07:00</strong></div>
+            </div>
+            <p>第一天直奔乌兰哈达火山地质公园。这里是离北京最近的火山群，仿佛置身火星表面。</p>
         </div>
-      </div>
-      <aside class="hero-visual" aria-label="AI 基础设施瓶颈分数">
-        <div class="visual-head">
-          <b>转折点强度排行</b>
-          <span>Score / 100</span>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-mountain-sun"></i> 必打卡点</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>8号火山：</strong>可以捡玛瑙，体验“寻宝”乐趣。</li>
+                    <li><strong>6号火山：</strong>经典的“火星基地”打卡点，出片率极高。</li>
+                    <li><strong>3号火山：</strong>可以沿栈道登顶，俯瞰整个火山群。</li>
+                </ul>
+            </div>
         </div>
-        <div class="stack-map" id="heroBars"></div>
-        <div class="hero-note">
-          <div class="mini"><small>最强证据</small><strong>硬订单与 backlog</strong></div>
-          <div class="mini"><small>最佳结构</small><strong>回调 + 价差</strong></div>
-          <div class="mini"><small>核心风险</small><strong>AI capex 降速</strong></div>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-utensils"></i> 精选美食</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">泽成·冰煮羊</span>
+                            <a href="https://www.dianping.com/search/keyword/398/0_泽成冰煮羊" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">羔羊肉和羔羊排非常新鲜。特色酸奶饼有独特的酸奶夹心，必试！</p>
+                    </div>
+                    <div class="review-tag">注意：近期评价两极分化，可能价格偏贵</div>
+                </div>
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">乡里乡亲后旗店</span>
+                            <a href="https://www.dianping.com/search/keyword/398/0_乡里乡亲后旗店" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">离火山近。小羊腿又嫩又好吃，焖羊肉软糯入味，老板服务热情。</p>
+                    </div>
+                </div>
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">聚顺源烧麦馆</span>
+                            <a href="https://www.dianping.com/search/keyword/398/0_聚顺源烧麦馆" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">主打煎烧麦，配上普洱砖茶，体验地道乌兰察布早餐。</p>
+                    </div>
+                </div>
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">塞纳奶食 (萨仁奶食)</span>
+                            <a href="https://www.dianping.com/search/keyword/398/0_萨仁奶食" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">干果奶皮子卷口感独特，是买特产回购率最高的一家。</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </aside>
-    </header>
+    </div>
 
-    <nav class="nav" id="nav">
-      <a href="#summary">一页结论</a>
-      <a href="#radar">雷达表</a>
-      <a href="#opportunities">Top 5 深挖</a>
-      <a href="#shorts">受损资产</a>
-      <a href="#pairs">配对交易</a>
-      <a href="#watchlist">观察名单</a>
-      <a href="#gaps">数据缺口</a>
-    </nav>
-
-    <section id="summary">
-      <div class="section-head">
-        <div>
-          <h2>一页结论</h2>
-          <p>核心判断：优先研究 AI 基础设施二阶瓶颈；热门标的已有 AI 溢价，交易上要区分“长期方向正确”和“短线已被充分定价”。</p>
+    <!-- Day 2 -->
+    <div id="day2" class="day-content">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-route"></i> 路线概览</div>
+            <div class="route-info">
+                <div><span>起点</span><strong>乌兰察布</strong></div>
+                <div><span>终点</span><strong>包头</strong></div>
+                <div><span>里程</span><strong>~280 km</strong></div>
+            </div>
+            <p>感受风吹草低见牛羊。黄花沟是世界三大高山草甸鲜花草原之一，景色独特。</p>
         </div>
-      </div>
-      <div class="grid cols-3">
-        <article class="card">
-          <h3>最值得关注</h3>
-          <p>HBM/企业 SSD、电力与液冷、光互联/AI 网络。共同点是从概念叙事进入供需、订单、交期和财报验证。</p>
-          <div class="tagline"><span class="tag good">硬证据</span><span class="tag good">二阶瓶颈</span><span class="tag">3-12 个月</span></div>
-        </article>
-        <article class="card">
-          <h3>最不值得追</h3>
-          <p>泛 AI PC、AI 手机、AI 眼镜概念。端侧 AI 目前更像规格升级和 BOM 压力，尚未证明利润池确定扩张。</p>
-          <div class="tagline"><span class="tag hot">出货承压</span><span class="tag hot">证据不足</span></div>
-        </article>
-        <article class="card" id="risk">
-          <h3>最大风险</h3>
-          <p>AI capex 交易拥挤。如果云厂商 capex 放缓、融资环境收紧或 GPU 利用率被质疑，二阶供应链也会估值压缩。</p>
-          <div class="tagline"><span class="tag hot">估值压缩</span><span class="tag hot">拥挤交易</span></div>
-        </article>
-      </div>
-    </section>
 
-    <section id="radar">
-      <div class="section-head">
-        <div>
-          <h2>AI 转折点雷达表</h2>
-          <p>筛选主题、资产或关键词；表头可排序。分数不是买入评级，而是“证据强度 + 可交易性 + 催化剂密度”的综合排序。</p>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-mountain-sun"></i> 必打卡点</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>辉腾锡勒草原：</strong>一望无际的草原，适合漫步。</li>
+                    <li><strong>黄花沟：</strong>独特的地质构造，草原与山谷交相辉映。</li>
+                    <li><strong>赛罕塔拉城中草原：</strong>包头市内的草原，别有一番风味。</li>
+                </ul>
+            </div>
         </div>
-      </div>
-      <div class="toolbar">
-        <input class="control" id="search" placeholder="搜索主题、标的、证据、催化剂..." />
-        <select class="control" id="scoreFilter">
-          <option value="0">全部分数</option>
-          <option value="75">只看 75 分以上</option>
-          <option value="65">只看 65 分以上</option>
-          <option value="55">只看 55 分以上</option>
-        </select>
-        <select class="control" id="heatFilter">
-          <option value="all">全部拥挤度</option>
-          <option value="hot">较拥挤</option>
-          <option value="watch">可观察</option>
-          <option value="early">证据不足</option>
-        </select>
-      </div>
-      <div class="radar-panel">
-        <div class="card radar-box">
-          <svg id="radarSvg" width="360" height="360" viewBox="0 0 360 360" role="img" aria-label="主题分数雷达图"></svg>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-utensils"></i> 精选美食</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">君王/牧都铁帽烤肉</span>
+                            <a href="https://www.dianping.com/search/keyword/397/0_铁帽烤肉" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">包头特色。铁帽烤肉形式感强，推荐烤鸡蛋和特色蒙古菜。</p>
+                    </div>
+                    <div class="review-tag">注意：烤盘可能有掉漆风险</div>
+                </div>
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">二旦沙葱稍麦</span>
+                            <a href="https://www.dianping.com/search/keyword/397/0_二旦稍麦" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">民族东路附近。沙葱馅儿味道极其鲜美地道，出租车师傅推荐。</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="radar-legend" id="radarLegend"></div>
-      </div>
-      <div class="table-wrap" style="margin-top:16px;">
-        <table id="radarTable">
-          <thead>
-            <tr>
-              <th class="sortable" data-sort="score">分数</th>
-              <th class="sortable" data-sort="theme">主题</th>
-              <th>新能力或瓶颈</th>
-              <th>直接受益方</th>
-              <th>最新证据</th>
-              <th>未定价证据</th>
-              <th>可交易资产</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
+    </div>
 
-    <section id="opportunities">
-      <div class="section-head">
-        <div>
-          <h2>Top 5 交易机会深挖</h2>
-          <p>点击左侧主题查看核心逻辑、证据、催化剂、失效条件、仓位与对冲。默认显示最高分主题。</p>
+    <!-- Day 3 -->
+    <div id="day3" class="day-content">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-route"></i> 路线概览</div>
+            <div class="route-info">
+                <div><span>起点</span><strong>包头</strong></div>
+                <div><span>终点</span><strong>乌海</strong></div>
+                <div><span>里程</span><strong>~300 km</strong></div>
+            </div>
+            <p>进入丹霞与雅丹地貌区，西部梦幻大峡谷极其出片。</p>
         </div>
-      </div>
-      <div class="workspace">
-        <div class="topic-list" id="topicList"></div>
-        <article class="detail" id="detail"></article>
-      </div>
-    </section>
 
-    <section id="shorts">
-      <div class="section-head">
-        <div>
-          <h2>做空或受损资产</h2>
-          <p>这些不是自动做空清单，而是配对交易中可作为资金来源或风险对冲的一侧。</p>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-mountain-sun"></i> 必打卡点</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>西部梦幻大峡谷：</strong>极具震撼力的丹霞景观。</li>
+                    <li><strong>乌海湖：</strong>一半沙漠一半湖泊的奇观（需乘船或越野车）。</li>
+                </ul>
+            </div>
         </div>
-      </div>
-      <div class="table-wrap">
-        <table id="shortTable">
-          <thead><tr><th>受损资产</th><th>受损原因</th><th>替代路径</th><th>何时反映</th><th>风险</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
 
-    <section id="pairs">
-      <div class="section-head">
-        <div>
-          <h2>配对交易和跨市场传导</h2>
-          <p>用于把“方向判断”转成更明确的相对价值表达，同时降低单边 beta 暴露。</p>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-utensils"></i> 精选美食</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">王军锅贴</span>
+                            <a href="https://www.dianping.com/search/keyword/2635/0_王军锅贴" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">位于阿拉善左旗。招牌锅贴皮脆馅大，味道深受好评。</p>
+                    </div>
+                </div>
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">蒙氏火锅</span>
+                            <a href="https://www.dianping.com/search/keyword/400/0_火锅" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">乌海市区推荐尝试当地的蒙氏火锅，肉质极佳。</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="table-wrap">
-        <table id="pairTable">
-          <thead><tr><th>交易结构</th><th>做多</th><th>做空</th><th>核心逻辑</th><th>催化剂</th><th>失效条件</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
+    </div>
 
-    <section id="watchlist">
-      <div class="section-head">
-        <div>
-          <h2>观察名单</h2>
-          <p>长期空间存在，但需要上市公司层面的订单、收入、毛利或交期证据再进入高置信度池。</p>
+    <!-- Day 4 -->
+    <div id="day4" class="day-content">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-route"></i> 路线概览</div>
+            <div class="route-info">
+                <div><span>起点</span><strong>乌海</strong></div>
+                <div><span>终点</span><strong>鄂尔多斯</strong></div>
+                <div><span>里程</span><strong>~350 km</strong></div>
+            </div>
+            <p>体验沙漠的乐趣。骑骆驼、滑沙、沙地摩托等项目非常丰富。</p>
         </div>
-      </div>
-      <div class="grid cols-3" id="watchCards"></div>
-    </section>
 
-    <section id="gaps">
-      <div class="section-head">
-        <div>
-          <h2>数据缺口</h2>
-          <p>报告明确标注了无法用公开信息充分覆盖的字段，避免把方向性叙事误读成完整交易定位分析。</p>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-mountain-sun"></i> 必打卡点</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>响沙湾：</strong>中国著名的沙漠旅游景区。</li>
+                    <li><strong>库布齐沙漠：</strong>徒步或越野的好地方。</li>
+                    <li><strong>成吉思汗陵：</strong>了解蒙古族历史文化。</li>
+                </ul>
+            </div>
         </div>
-      </div>
-      <div class="compact-list" id="gapList"></div>
-    </section>
 
-    <footer class="footer">
-      当前日期：2026 年 5 月 10 日。本页面仅根据用户提供的报告内容生成，不构成投资建议；期权 IV、机构持仓拥挤度、完整 1/3/6/12 个月收益率等仍需 Bloomberg、FactSet、OptionMetrics 等终端级数据确认。
-    </footer>
-  </div>
-
-  <script>
-    const themes = [
-      {
-        rank: 1,
-        theme: "AI 内存 / HBM / 企业 SSD",
-        short: "内存从周期品变成基础设施合同品",
-        score: 84,
-        heat: "hot",
-        beneficiaries: "MU、SK Hynix、Samsung、WDC/SNDK",
-        assets: "MU、005930.KS、000660.KS、WDC/SNDK、DRAM ETF",
-        bottleneck: "长上下文、推理、agent、多模态导致内存带宽和容量瓶颈",
-        evidence: "Micron 称供需紧张可能持续到 2026 年之后，并推进多年期、有明确承诺的客户合同；市场报道称短缺可能延续到 2027。",
-        mispricing: "MU 大涨后短线拥挤，但若 HBM 合同化降低周期性，盈利预测和估值中枢仍可能上移。",
-        direction: "做多回调；MU 看涨价差；多内存 / 空低端消费电子",
-        conclusion: "做多回调，优先用看涨价差或分批仓位；短线不追涨。",
-        logic: "AI 新瓶颈从“有没有 GPU”迁移到“GPU/ASIC 有没有足够 HBM、DRAM、NAND 和高性能存储喂数据”。长上下文、长期记忆、agent 和视频推理会持续提高内存带宽、容量和存储读写需求。",
-        catalysts: ["DRAM/NAND 价格、Micron 指引", "HBM3E/HBM4 认证、AI 加速器出货", "HBM 产能扩张与客户预付款", "2027 supply sold-out 与 pricing power"],
-        upside: "中性情景是 EPS 上修带动股价随盈利上行；乐观情景是市场把内存从周期品重估为 AI 基础设施。",
-        risks: "供给扩张过快、HBM 良率提升压价、hyperscaler capex 放缓、HBM4 份额被竞争对手抢走。",
-        invalidation: "DRAM/NAND 价格连续下跌；指引不再强调供给紧张；客户合同取消或转短约；HBM 毛利率明显回落。",
-        position: "右侧确认后的回调买入；当前不适合满仓追涨，可用观察仓或 call spread 控制波动。",
-        hedge: "空低端消费电子 OEM、空高估值但缺少 AI 订单的存储概念股，或用 SOXX/SMH 对冲 beta。"
-      },
-      {
-        rank: 2,
-        theme: "电力 / 配电 / UPS / 液冷",
-        short: "AI 数据中心电力与热管理成为新瓶颈",
-        score: 82,
-        heat: "watch",
-        beneficiaries: "VRT、ETN、Schneider、Legrand",
-        assets: "VRT、ETN、SU.PA、LR.PA",
-        bottleneck: "AI rack 功率密度上升，电网接入和热管理变硬瓶颈",
-        evidence: "Vertiv Q1 2026 销售 26.5 亿美元、同比 +30%；Eaton Electrical Americas backlog +44%，数据中心订单约 +240%。",
-        mispricing: "VRT 估值高；ETN 因毛利和指引担忧下跌后，可能存在订单强但股价消化估值的预期差。",
-        direction: "做多二阶基础设施；回调买入；多 ETN/VRT 空高估数据中心 REIT 或高耗电下游",
-        conclusion: "做多二阶 AI 基础设施，优先 ETN/VRT/Schneider；VRT 证据最硬但估值高，ETN 回调后性价比更好。",
-        logic: "AI 数据中心瓶颈正在从芯片迁移到电力接入、配电、UPS、液冷和机柜。云厂商 capex 进入建设阶段后，订单先体现在电气设备和热管理 backlog。",
-        catalysts: ["数据中心订单、Eaton/Vertiv backlog", "hyperscaler capex 修订", "液冷渗透率、变压器交期、电网政策", "新产能投放后的 margin 扩张"],
-        upside: "中性情景是 backlog 转收入、margin 扩张且估值维持；乐观情景是电力设备成为数据中心建设主瓶颈。",
-        risks: "AI 数据中心项目延期、客户议价压 margin、供应链扩产过快、利率上行压制基建股估值。",
-        invalidation: "book-to-bill 跌破 1；backlog 增速明显下降；数据中心订单转收入失败；液冷价格竞争恶化。",
-        position: "VRT 只适合回调确认仓；ETN/Schneider 可作为试错仓，周期 3-12 个月。",
-        hedge: "空高估值数据中心 REIT、空缺电力资源的 AI hosting 公司，或用 XLI/工业指数对冲。"
-      },
-      {
-        rank: 3,
-        theme: "光互联 / 800G / 1.6T / CPO",
-        short: "AI 网络从 800G 迈向 1.6T、硅光与 CPO",
-        score: 78,
-        heat: "hot",
-        beneficiaries: "LITE、COHR、Fabrinet、Innolight",
-        assets: "LITE、COHR、FN、300308.SZ、2382.TW",
-        bottleneck: "GPU 集群扩大后，铜缆功耗和距离限制暴露",
-        evidence: "Lumentum Q3 FY2026 revenue 8.084 亿美元，同比约 +90%；Coherent 指引 Q4 revenue 19.1-20.5 亿美元。",
-        mispricing: "光器件已很热；未定价部分主要在 1.6T/CPO 的持续时间、毛利率和供应短缺时长。",
-        direction: "做多光器件回调；多 ANET/空传统网络设备；小仓位",
-        conclusion: "逻辑很强，但 LITE/COHR 已热；等待回调或用小仓位价差。",
-        logic: "AI 集群扩容后，瓶颈从单卡算力转向节点间通信。800G 正在成为主流，1.6T、硅光和 CPO 将成为下一阶段功耗和带宽解决方案。",
-        catalysts: ["LITE/COHR/FN 订单和指引", "1.6T 出货节奏", "CPO 设计赢单", "AI rack 内部光互联渗透"],
-        upside: "中性情景是 1.6T ramp 带来收入上修；乐观情景是 CPO/光 I/O 提前放量，利润率继续扩张。",
-        risks: "客户双供导入导致价格压力、Nvidia/云厂商自研或压价、光模块供给扩张、技术路线转向。",
-        invalidation: "订单不再加速；gross margin 回落；1.6T 推迟；库存开始上升。",
-        position: "适合右侧强趋势，但只用小仓位或 call spread；不建议追高裸多。",
-        hedge: "多 LITE/COHR/FN，空传统低速光模块或高估值无订单概念股；或空 Nasdaq beta。"
-      },
-      {
-        rank: 4,
-        theme: "Custom ASIC / AI Ethernet fabric",
-        short: "ASIC 与以太网 fabric 分流 GPU 利润池",
-        score: 76,
-        heat: "watch",
-        beneficiaries: "AVGO、ANET、MRVL、TSM",
-        assets: "AVGO、ANET、MRVL、TSM",
-        bottleneck: "推理成本下降需要 custom ASIC 和以太网 fabric",
-        evidence: "Broadcom Q1 FY2026 AI revenue 84 亿美元、同比 +106%，Q2 AI semiconductor revenue 指引 107 亿美元；Arista Q1 revenue 同比 +35.1%。",
-        mispricing: "AVGO 已高度定价 AI ASIC；ANET 因供应链、memory/silicon/optics 压力和 margin 担忧回调，预期差更明显。",
-        direction: "多 AVGO/ANET，或多 ASIC 供应链空部分通用服务器链",
-        conclusion: "做多 AVGO/ANET，但 AVGO 已较充分，ANET 因短期供应链和 margin 担忧出现更好观察点。",
-        logic: "推理量变大后，云厂商会用 custom ASIC 降低单位 token 成本。ASIC 需要网络 fabric，AI Ethernet 将分流一部分 InfiniBand 和通用 GPU 利润池。",
-        catalysts: ["Broadcom Q2 指引兑现", "Arista AI fabric revenue target 是否上调", "Google/Meta/OpenAI/Anthropic ASIC 订单", "Rubin/ASIC 平台切换后的网络 BOM 提升"],
-        upside: "中性情景是 ASIC backlog 拉长、AVGO/ANET 盈利上修；乐观情景是 ASIC 成为 hyperscaler 推理主路径。",
-        risks: "客户自研绕开 Broadcom、Marvell 竞争、Nvidia networking 绑定、供应短缺压 margin。",
-        invalidation: "Broadcom AI revenue 增速放缓；Arista AI fabric 指引下修；hyperscaler 明确减少 Ethernet fabric 采购。",
-        position: "AVGO 适合核心仓但不适合追涨；ANET 更适合回调试错仓，周期 3-12 个月。",
-        hedge: "多 AVGO/ANET，空传统网络设备或高估值低增长硬件；也可空 QQQ beta。"
-      },
-      {
-        rank: 5,
-        theme: "企业 AI agent / 安全 / 数据治理",
-        short: "Agent 从 demo 进入企业执行层，但软件股分化",
-        score: 69,
-        heat: "watch",
-        beneficiaries: "PLTR、JFrog、PANW、CRWD、NOW",
-        assets: "PLTR、FROG、PANW、CRWD、ZS",
-        bottleneck: "agent 进入真实流程后，需要权限、审计、安全和代码供应链",
-        evidence: "Palantir Q1 revenue 同比 +85% 并上调 2026 revenue 指引；JFrog Q1 revenue 同比 +26%，三家前五大 AI-native 客户使用其平台。",
-        mispricing: "PLTR 估值和叙事拥挤；JFrog 体量小但 AI-native 客户证据增强，安全链条需要确认新增预算。",
-        direction: "只选有收入验证者；避免高 PS 追涨",
-        conclusion: "观察 + 精选做多；不要买泛 AI SaaS。",
-        logic: "企业 agent 真正生产化后，企业最缺的是权限、审计、数据治理、代码制品管理、安全隔离和工作流编排，而不是更多聊天界面。",
-        catalysts: ["企业 agent 产品使用量、JFrog/PLTR 新合同", "安全公司 AI ARR 或模块 attach rate", "政府 AI 项目预算", "agent 是否进入生产工作流而非 POC"],
-        upside: "中性情景是 PLTR/JFrog 收入继续上修；乐观情景是企业 agent 形成新预算，安全/治理平台重估。",
-        risks: "开源替代、客户自建、AI 功能 commoditize、seat-based SaaS 被 usage-based 模式冲击。",
-        invalidation: "AI 产品 attach rate 停滞；net retention 下滑；AI 相关收入无法披露或无法转化为 billings。",
-        position: "PLTR 不追高；FROG/PANW/CRWD/ZS 更适合等待财报确认后右侧进入。",
-        hedge: "多有 AI 收入验证的软件平台，空高 PS、低增长、AI 叙事但无订单披露的 SaaS。"
-      },
-      {
-        rank: 6,
-        theme: "先进封装 / CoWoS",
-        short: "HBM + accelerator 需要先进封装产能",
-        score: 74,
-        heat: "watch",
-        beneficiaries: "TSM、ASE、Amkor、Ibiden、Shinko",
-        assets: "TSM、ASX、AMKR、6146.TW、4062.T",
-        bottleneck: "HBM + accelerator 需要先进封装产能",
-        evidence: "公开报道称 TSMC CoWoS 需求旺盛，Nvidia 和云厂商争抢产能；MediaTek 称 AI accelerator ASIC 2027 可贡献数十亿美元收入。",
-        mispricing: "TSM 已被充分认识，但封装二阶供应链可能仍有传导。",
-        direction: "多封装、基板、测试和材料链条",
-        conclusion: "作为传导链观察，优先找订单和产能利用率证据。"
-      },
-      {
-        rank: 7,
-        theme: "AI PC / 手机 / 眼镜",
-        short: "端侧 AI 尚未证明利润池扩张",
-        score: 58,
-        heat: "early",
-        beneficiaries: "QCOM、ARM、Apple 供应链、MediaTek",
-        assets: "QCOM、ARM、2454.TW、舜宇、立讯",
-        bottleneck: "端侧 NPU、传感器、内存升级",
-        evidence: "Arm 称 AI 数据中心需求强，但智能手机市场疲弱；Counterpoint 称 Q1 2026 手机出货同比下滑。",
-        mispricing: "端侧需求尚未体现为上市公司利润弹性。",
-        direction: "暂不按“AI 相关”直接买入",
-        conclusion: "更多是规格升级和 BOM 压力，等待出货、ASP 与毛利率证据。"
-      },
-      {
-        rank: 8,
-        theme: "机器人 / 具身智能",
-        short: "方向成立，但量产订单不足",
-        score: 56,
-        heat: "early",
-        beneficiaries: "Nvidia、Fanuc、Keyence、Harmonic Drive、Nabtesco",
-        assets: "6954.T、6324.T、6861.T、NVDA、Tesla",
-        bottleneck: "物理 AI 需要仿真、执行器、传感器",
-        evidence: "Nvidia 推出 Isaac/Cosmos/GR00T 生态，但多数机器人公司仍处早期。",
-        mispricing: "缺少量产订单和毛利率证据。",
-        direction: "观察，不直接买入叙事",
-        conclusion: "等待万台级订单、BOM 利润分配和交期证据。"
-      },
-      {
-        rank: 9,
-        theme: "AI 医药",
-        short: "科研能力进步，但收入证据弱",
-        score: 53,
-        heat: "early",
-        beneficiaries: "RXRX、SDGR、生命科学工具",
-        assets: "RXRX、SDGR、TMO、A",
-        bottleneck: "模型做科研分析、蛋白/分子设计",
-        evidence: "新模型在 genetics/bioinformatics benchmarks 提升，但上市公司收入证据仍弱。",
-        mispricing: "多数公司仍亏损，临床转化周期长。",
-        direction: "观察临床和里程碑付款",
-        conclusion: "等待临床成功与可持续收入，不把技术进步直接等同于股票机会。"
-      }
-    ];
-
-    const shorts = [
-      ["低端消费电子 OEM", "DRAM/NAND 涨价压缩 BOM 和毛利，AI 端侧需求尚未完全抵消出货下滑", "内存厂、上游涨价受益", "2026 年手机/PC 出货和毛利", "AI 手机换机周期突然启动"],
-      ["传统低速光模块/铜互联供应商", "800G/1.6T、硅光、CPO 替代低速产品", "LITE、COHR、FN、高速光模块", "1.6T ramp 和 CPO 设计赢单", "下游需求太强，低速也受益"],
-      ["泛 AI SaaS 高估值公司", "agent 可能压缩 seat-based SaaS，客户要求 outcome-based pricing", "PLTR、NOW、安全/治理平台", "FY2026 billings 和 NRR 放缓", "AI 功能被成功 monetization"],
-      ["缺电力资源的 AI hosting / 小型数据中心", "电网接入、融资成本、GPU 折旧风险", "大型 hyperscaler、VRT/ETN", "项目延期、融资成本上升", "被大客户长约锁定后暴涨"],
-      ["传统 CPU 服务器链条", "AI capex 挤出通用服务器预算，GPU/ASIC/内存/网络占 BOM", "GPU/ASIC、HBM、AI network", "服务器 OEM mix 变化", "企业 refresh 周期恢复"]
-    ];
-
-    const pairs = [
-      ["内存合同化重估", "MU、SK Hynix、Samsung", "低端消费电子 OEM", "HBM/DRAM/NAND 价格上涨利好上游、压制下游 BOM", "合约价上涨、HBM sold-out 延续", "内存价格回落、手机需求强到可转嫁"],
-      ["电力瓶颈交易", "ETN、VRT、Schneider", "缺电/高融资成本 AI hosting", "数据中心建设瓶颈转向电力设备和液冷", "backlog、book-to-bill、capex 指引", "数据中心项目延期或电力设备 margin 下滑"],
-      ["网络瓶颈交易", "ANET、AVGO、LITE/COHR", "传统低增长网络设备", "AI fabric、800G/1.6T、ASIC 网络拉动收入", "1.6T 出货、AI networking revenue", "Nvidia networking 绑定挤压以太网"],
-      ["拥挤龙头对低估二阶", "ETN/Schneider/FN", "部分极度拥挤 AI 硬件龙头", "二阶供应链订单硬，但估值低于一阶龙头", "财报季订单确认", "二阶供应链被证明无定价权"],
-      ["跨市场传导", "TSM、台股封测/基板、日韩内存、日股自动化", "美股高估 AI 概念", "美股 AI capex 传导至亚洲制造环节", "TSM 月营收、韩股内存出口、日股订单", "汇率、地缘政治、客户砍单"]
-    ];
-
-    const watch = [
-      ["AI 眼镜", "缺少大规模出货、ASP、毛利率证据", "Apple/Meta/Google 明确上修供应链订单", "镜头、CIS、MicroLED、SoC 订单", "QCOM、ARM、舜宇、立讯、歌尔"],
-      ["具身智能/人形机器人", "缺少量产订单和单机 BOM 利润分配", "车厂/工厂签订万台级订单", "减速器、伺服、力矩传感器交期", "Harmonic Drive、Nabtesco、Fanuc、Keyence"],
-      ["AI 医药", "缺少临床成功和可持续收入", "AI 设计药物进入关键临床并产生里程碑付款", "pipeline、milestone、CRO 订单", "RXRX、SDGR、TMO、A"],
-      ["AI 数据/向量数据库", "上市公司映射少，收入披露不足", "企业 agent 生产化带动数据治理预算", "ARR、NRR、AI attach rate", "MDB、ESTC、SNOW、DDOG"],
-      ["自动驾驶/robotaxi", "硬件链条受益不清，整车商业模式重资产", "robotaxi 城市扩张和单位经济改善", "每英里成本、车队规模、传感器订单", "GOOGL、TSLA、HSAI、MBLY"],
-      ["AI 安全", "安全预算是否新增不清", "AI DLP、identity、agent security 独立 ARR 披露", "billings、attach rate、large deals", "PANW、CRWD、ZS、S"]
-    ];
-
-    const gaps = [
-      ["市场定位数据不足", "未找到可靠公开来源覆盖全部标的 1/3/6/12 个月股价表现、期权 IV、机构持仓拥挤度和 sell-side EPS 修订序列。"],
-      ["早期方向证据不足", "机器人、AI 医药、AI 眼镜目前多数缺少订单、交期、毛利率和收入占比证据。"],
-      ["AI capex 口径差异", "多个公开报道把 2026 hyperscaler capex 估计放在 7000 亿美元附近，但需逐家公司核对 10-Q、earnings call 和 capex 指引。"],
-      ["未定价程度需终端验证", "光模块和电力设备公开财报能证明订单强，但仍需核验 consensus revisions、客户集中度、库存和期权 IV。"],
-      ["亚洲二阶供应链需公告验证", "A 股、台股、日股、韩股供应链只给出传导方向，未把无订单披露公司列为高置信度买入。"]
-    ];
-
-    const heatLabel = { hot: "较拥挤", watch: "可观察", early: "证据不足" };
-    let sortState = { key: "score", dir: -1 };
-    let activeTheme = themes[0];
-
-    function byId(id) { return document.getElementById(id); }
-    function escapeHtml(text) {
-      return String(text).replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[m]));
-    }
-
-    function renderHeroBars() {
-      byId("heroBars").innerHTML = themes.slice(0, 5).map(item => `
-        <div class="map-row">
-          <b>${escapeHtml(item.theme.split(" / ")[0])}</b>
-          <div class="bar"><span style="width:${item.score}%"></span></div>
-          <div class="score">${item.score}</div>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-utensils"></i> 精选美食</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">沙漠盖饭</span>
+                            <a href="https://www.dianping.com/search/keyword/399/0_响沙湾 餐厅" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">响沙湾景区内餐厅。牛肉盖饭分量足，价格合理，味道有惊喜。</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      `).join("");
-    }
+    </div>
 
-    function filteredThemes() {
-      const q = byId("search").value.trim().toLowerCase();
-      const min = Number(byId("scoreFilter").value);
-      const heat = byId("heatFilter").value;
-      return themes.filter(item => {
-        const hay = [item.theme, item.short, item.assets, item.beneficiaries, item.evidence, item.mispricing, item.direction].join(" ").toLowerCase();
-        return item.score >= min && (heat === "all" || item.heat === heat) && (!q || hay.includes(q));
-      }).sort((a, b) => {
-        const av = a[sortState.key], bv = b[sortState.key];
-        if (typeof av === "number") return (av - bv) * sortState.dir;
-        return String(av).localeCompare(String(bv), "zh-CN") * sortState.dir;
-      });
-    }
-
-    function renderRadarTable() {
-      const rows = filteredThemes();
-      byId("radarTable").querySelector("tbody").innerHTML = rows.map(item => `
-        <tr>
-          <td><span class="score-pill">${item.score}</span></td>
-          <td class="theme-cell">${escapeHtml(item.theme)}<div class="tagline"><span class="tag ${item.heat === "hot" ? "hot" : item.heat === "early" ? "" : "good"}">${heatLabel[item.heat]}</span></div></td>
-          <td>${escapeHtml(item.bottleneck)}</td>
-          <td>${escapeHtml(item.beneficiaries)}</td>
-          <td>${escapeHtml(item.evidence)}</td>
-          <td>${escapeHtml(item.mispricing)}</td>
-          <td class="asset">${escapeHtml(item.assets)}</td>
-        </tr>
-      `).join("");
-      renderRadar(rows);
-    }
-
-    function renderRadar(rows = themes) {
-      const top = rows.slice(0, 9);
-      const svg = byId("radarSvg");
-      const cx = 180, cy = 180, maxR = 132;
-      const points = top.map((item, i) => {
-        const angle = (-90 + i * 360 / top.length) * Math.PI / 180;
-        const r = maxR * item.score / 100;
-        return [cx + Math.cos(angle) * r, cy + Math.sin(angle) * r, item, angle];
-      });
-      const grid = [0.25, 0.5, 0.75, 1].map(scale => {
-        const ps = top.map((_, i) => {
-          const angle = (-90 + i * 360 / top.length) * Math.PI / 180;
-          return `${cx + Math.cos(angle) * maxR * scale},${cy + Math.sin(angle) * maxR * scale}`;
-        }).join(" ");
-        return `<polygon points="${ps}" fill="none" stroke="#dce2dc" stroke-width="1"></polygon>`;
-      }).join("");
-      const axes = top.map((_, i) => {
-        const angle = (-90 + i * 360 / top.length) * Math.PI / 180;
-        return `<line x1="${cx}" y1="${cy}" x2="${cx + Math.cos(angle) * maxR}" y2="${cy + Math.sin(angle) * maxR}" stroke="#e6ebe6"></line>`;
-      }).join("");
-      const poly = points.map(p => `${p[0]},${p[1]}`).join(" ");
-      const dots = points.map(([x, y, item]) => `<circle cx="${x}" cy="${y}" r="5" fill="#0f766e"><title>${escapeHtml(item.theme)} ${item.score}</title></circle>`).join("");
-      svg.innerHTML = `${grid}${axes}<polygon points="${poly}" fill="rgba(15,118,110,.18)" stroke="#0f766e" stroke-width="3"></polygon>${dots}<circle cx="${cx}" cy="${cy}" r="3" fill="#1b2430"></circle>`;
-      byId("radarLegend").innerHTML = top.map(item => `
-        <div class="legend-item">
-          <span class="score-pill">${item.score}</span>
-          <div><strong>${escapeHtml(item.theme)}</strong><span>${escapeHtml(item.short)}</span></div>
-          <span class="tag ${item.heat === "hot" ? "hot" : item.heat === "watch" ? "good" : ""}">${heatLabel[item.heat]}</span>
+    <!-- Day 5 -->
+    <div id="day5" class="day-content">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-route"></i> 路线概览</div>
+            <div class="route-info">
+                <div><span>起点</span><strong>鄂尔多斯</strong></div>
+                <div><span>终点</span><strong>北京</strong></div>
+                <div><span>里程</span><strong>~600 km</strong></div>
+            </div>
+            <p>返程路漫漫。建议大同作为中转点，领略石窟艺术。</p>
         </div>
-      `).join("");
-    }
 
-    function renderTopicList() {
-      byId("topicList").innerHTML = themes.slice(0, 5).map(item => `
-        <button class="topic-btn ${item.theme === activeTheme.theme ? "active" : ""}" data-theme="${escapeHtml(item.theme)}">
-          <b>${escapeHtml(item.theme)}</b>
-          <strong>${item.score}</strong>
-          <span>${escapeHtml(item.short)}</span>
-        </button>
-      `).join("");
-      document.querySelectorAll(".topic-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          activeTheme = themes.find(t => t.theme === btn.dataset.theme) || themes[0];
-          renderTopicList();
-          renderDetail();
+        <div class="card">
+            <div class="card-title"><i class="fas fa-mountain-sun"></i> 必打卡点</div>
+            <div class="attractions">
+                <ul>
+                    <li><strong>云冈石窟：</strong>中国四大石窟之一，极其震撼。</li>
+                    <li><strong>大同古城：</strong>可以在城墙上骑行。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-utensils"></i> 精选美食</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">老绥元烧麦</span>
+                            <a href="https://www.dianping.com/search/keyword/15/0_老绥元烧麦" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">内蒙古连锁名店。羊肉大葱烧麦现包现蒸，是早餐首选。</p>
+                    </div>
+                </div>
+                <div class="food-item">
+                    <div>
+                        <div class="food-header">
+                            <span class="food-name">黄旗手把肉</span>
+                            <a href="https://www.dianping.com/search/keyword/398/0_黄旗手把肉" target="_blank" class="dianping-link">大众点评</a>
+                        </div>
+                        <p class="food-desc">在乌兰察布周边或返程途中可尝试。原汁原味的羊肉吃法。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>祝您旅途愉快！一路顺风 🚗💨</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">基于 2026.05 旅游攻略生成</p>
+    </div>
+</div>
+
+<div class="fab-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+    function showDay(dayNumber) {
+        // Update tabs
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach((tab, index) => {
+            if (index === dayNumber - 1) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
+            }
         });
-      });
-    }
 
-    function renderDetail() {
-      const t = activeTheme;
-      byId("detail").innerHTML = `
-        <div class="tagline"><span class="score-pill">${t.score}</span><span class="tag ${t.heat === "hot" ? "hot" : "good"}">${heatLabel[t.heat]}</span><span class="tag">${escapeHtml(t.direction)}</span></div>
-        <h3>${escapeHtml(t.theme)}</h3>
-        <p class="conclusion">${escapeHtml(t.conclusion)}</p>
-        <div class="detail-grid">
-          <div class="info"><b>核心逻辑</b><p>${escapeHtml(t.logic)}</p></div>
-          <div class="info"><b>数据证据</b><p>${escapeHtml(t.evidence)}</p></div>
-          <div class="info"><b>市场未定价证据</b><p>${escapeHtml(t.mispricing)}</p></div>
-          <div class="info"><b>上行空间</b><p>${escapeHtml(t.upside)}</p></div>
-          <div class="info"><b>下行风险</b><p>${escapeHtml(t.risks)}</p></div>
-          <div class="info"><b>失效条件</b><p>${escapeHtml(t.invalidation)}</p></div>
-          <div class="info"><b>仓位建议</b><p>${escapeHtml(t.position)}</p></div>
-          <div class="info"><b>对冲方式</b><p>${escapeHtml(t.hedge)}</p></div>
-        </div>
-        <div class="timeline">
-          ${t.catalysts.map((c, i) => `<div class="timebox"><strong>${["1 个月", "3 个月", "6 个月", "12 个月"][i]}</strong><span>${escapeHtml(c)}</span></div>`).join("")}
-        </div>
-      `;
-    }
-
-    function renderSimpleTables() {
-      byId("shortTable").querySelector("tbody").innerHTML = shorts.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("");
-      byId("pairTable").querySelector("tbody").innerHTML = pairs.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("");
-      byId("watchCards").innerHTML = watch.map(row => `
-        <article class="card">
-          <h3>${escapeHtml(row[0])}</h3>
-          <p><b>缺口：</b>${escapeHtml(row[1])}</p>
-          <p style="margin-top:10px;"><b>买入信号：</b>${escapeHtml(row[2])}</p>
-          <div class="tagline"><span class="tag">${escapeHtml(row[3])}</span><span class="tag">${escapeHtml(row[4])}</span></div>
-        </article>
-      `).join("");
-      byId("gapList").innerHTML = gaps.map(row => `<div class="risk"><b>${escapeHtml(row[0])}</b><p>${escapeHtml(row[1])}</p></div>`).join("");
-    }
-
-    function bindEvents() {
-      ["search", "scoreFilter", "heatFilter"].forEach(id => byId(id).addEventListener("input", renderRadarTable));
-      document.querySelectorAll("th.sortable").forEach(th => {
-        th.addEventListener("click", () => {
-          const key = th.dataset.sort;
-          sortState = { key, dir: sortState.key === key ? sortState.dir * -1 : (key === "score" ? -1 : 1) };
-          renderRadarTable();
+        // Update content
+        const contents = document.querySelectorAll('.day-content');
+        contents.forEach((content, index) => {
+            if (index === dayNumber - 1) {
+                content.classList.add('active');
+            } else {
+                content.classList.remove('active');
+            }
         });
-      });
-      const navLinks = [...document.querySelectorAll(".nav a")];
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${entry.target.id}`));
-        });
-      }, { rootMargin: "-35% 0px -55% 0px", threshold: 0.01 });
-      document.querySelectorAll("section[id]").forEach(section => observer.observe(section));
-    }
 
-    renderHeroBars();
-    renderRadarTable();
-    renderTopicList();
-    renderDetail();
-    renderSimpleTables();
-    bindEvents();
-  </script>
+        // Scroll to container top if mobile
+        if (window.innerWidth < 600) {
+            document.querySelector('.nav-tabs').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+</script>
+
 </body>
 </html>
