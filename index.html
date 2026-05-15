@@ -27,7 +27,7 @@
       color: var(--ink);
       background:
         linear-gradient(rgba(251, 250, 244, .72), rgba(251, 250, 244, .92)),
-        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80") center top / cover fixed;
+        url("assets/hero-inner-mongolia.jpg") center top / cover fixed;
     }
 
     a { color: inherit; }
@@ -580,12 +580,12 @@
     <div class="hero-inner">
       <div class="eyebrow">2026.05.27 - 05.31 · 北京出发 · 火山沙漠大环线</div>
       <h1>北京到内蒙古自驾计划</h1>
-      <p class="lead">5 天串联乌兰哈达火山、辉腾锡勒草原、包头、乌海丹霞、库布齐沙漠和大同云冈石窟。页面可按日期切换，餐厅卡片附大众点评跳转。</p>
+      <p class="lead">5 天串联乌兰哈达火山、辉腾锡勒草原、包头、鄂尔多斯、库布齐沙漠和大同云冈石窟。页面可按日期切换，餐厅卡片附大众点评跳转。</p>
       <div class="hero-stats">
         <div class="stat"><strong>5 天</strong><span>每日独立行程</span></div>
-        <div class="stat"><strong>约 1640 km</strong><span>核心长途路段合计</span></div>
-        <div class="stat"><strong>4 类地貌</strong><span>草原 / 火山 / 沙漠 / 丹霞</span></div>
-        <div class="stat"><strong>16 家</strong><span>餐厅与特产备选</span></div>
+        <div class="stat"><strong>约 1450 km</strong><span>核心长途路段合计</span></div>
+        <div class="stat"><strong>3 类地貌</strong><span>草原 / 火山 / 沙漠</span></div>
+        <div class="stat"><strong>14 家</strong><span>餐厅与特产备选</span></div>
       </div>
     </div>
   </header>
@@ -595,11 +595,11 @@
       <div class="panel route-map">
         <div class="section-title">
           <h2>路线总览</h2>
-          <p>真实地图截图 · 点下方日期查看当天详情</p>
+          <p>路线示意图 · 点下方日期查看当天详情</p>
         </div>
         <figure class="map-shot">
-          <img src="assets/inner-mongolia-route-map.png" alt="北京到内蒙古五日自驾路线地图截图，标注北京、乌兰察布、包头、乌海、鄂尔多斯、大同及返京路线" />
-          <figcaption>底图来自高德地图瓦片，路线为规划概览连线；实际行车路况、收费站和绕行请以导航 App 实时路线为准。</figcaption>
+          <img src="assets/inner-mongolia-route-map.svg" alt="北京到内蒙古五日自驾路线示意图，标注北京、乌兰察布、包头、鄂尔多斯、大同及返京路线" />
+          <figcaption>路线为规划概览连线；实际行车路况、收费站和绕行请以导航 App 实时路线为准。</figcaption>
         </figure>
       </div>
       <aside class="panel tips">
@@ -625,8 +625,8 @@
     <nav class="day-tabs" aria-label="日期切换">
       <button class="tab active" data-day="0"><strong>Day 1</strong><span>北京 → 乌兰察布</span></button>
       <button class="tab" data-day="1"><strong>Day 2</strong><span>乌兰察布 → 包头</span></button>
-      <button class="tab" data-day="2"><strong>Day 3</strong><span>包头 → 乌海</span></button>
-      <button class="tab" data-day="3"><strong>Day 4</strong><span>乌海 → 鄂尔多斯</span></button>
+      <button class="tab" data-day="2"><strong>Day 3</strong><span>包头 → 鄂尔多斯</span></button>
+      <button class="tab" data-day="3"><strong>Day 4</strong><span>鄂尔多斯周边</span></button>
       <button class="tab" data-day="4"><strong>Day 5</strong><span>鄂尔多斯 → 北京</span></button>
     </nav>
 
@@ -686,10 +686,8 @@
       { id: "tiebao-bt", day: 1, name: "铁帽烤肉(滨河店)", city: "包头", type: "烤肉", link: "https://www.dianping.com/shop/l5w4I07luQmDNUYx", linkType: "商户页", note: "包头铁帽烤肉备选；如果去之前评价不稳，可换同类高分门店。", tags: ["烤肉", "备选", "性价比"] },
       { id: "shacong", day: 1, name: "沙葱稍麦", city: "包头", type: "烧麦", link: shopSearch("沙葱稍麦 包头 民族东路"), linkType: "点评搜索", note: "民族东路附近找沙葱馅儿烧麦，适合早餐或午餐。", tags: ["沙葱", "稍麦", "出租车师傅推荐"] },
       { id: "siziwang", day: 1, name: "四子王蒙餐", city: "乌兰察布", type: "羊肉", link: shopSearch("四子王蒙餐 乌兰察布"), linkType: "点评搜索", note: "想体验更完整蒙餐时可作为补充选择。", tags: ["蒙餐", "手把肉", "备选"] },
-      { id: "wangjunguo", day: 2, name: "王军锅", city: "阿拉善左旗", type: "羊肉", link: shopSearch("王军锅 阿拉善左旗"), linkType: "点评搜索", note: "靠近西部梦幻峡谷的砂锅备选，适合午饭或峡谷后补能量。", tags: ["砂锅", "峡谷附近", "家常"] },
-      { id: "tiebao-wh", day: 2, name: "铁帽烤肉", city: "乌海", type: "烤肉", link: shopSearch("铁帽烤肉 乌海"), linkType: "点评搜索", note: "乌海晚餐备选，评价中性价比反馈较多。", tags: ["烤肉", "晚餐", "备选"] },
+      { id: "zecheng-ordos", day: 2, name: "泽成冰煮羊(康巴什店)", city: "鄂尔多斯", type: "羊肉", link: "https://m.dianping.com/shop/128263816", linkType: "商户页", note: "鄂尔多斯热门火锅备选，冰煮羊、羊排和酸奶饼可点。", tags: ["冰煮羊", "康巴什", "晚餐"] },
       { id: "shamogai", day: 3, name: "沙漠盖饭", city: "响沙湾", type: "景区", link: shopSearch("沙漠盖饭 响沙湾"), linkType: "点评搜索", note: "景区内餐厅，牛肉盖饭分量和价格反馈较好，适合不想折返找饭。", tags: ["牛肉盖饭", "景区内", "不虚高"] },
-      { id: "zecheng-ordos", day: 3, name: "泽成冰煮羊(康巴什店)", city: "鄂尔多斯", type: "羊肉", link: "https://m.dianping.com/shop/128263816", linkType: "商户页", note: "鄂尔多斯热门火锅备选，冰煮羊、羊排和酸奶饼可点。", tags: ["冰煮羊", "康巴什", "晚餐"] },
       { id: "laosuiyuan", day: 4, name: "老绥元烧麦", city: "呼和浩特/北京等", type: "烧麦", link: "https://www.dianping.com/shop/90983705", linkType: "商户页", note: "老字号烧麦路线；若返程实际停大同，建议用点评搜附近同类。", tags: ["羊肉大葱烧麦", "早餐", "连锁"] },
       { id: "laosuiyuan-bj", day: 4, name: "老绥元烧麦(昌平店)", city: "北京返程", type: "烧麦", link: "https://www.dianping.com/shop/121523404", linkType: "商户页", note: "接近北京时的备选落点，适合返程太晚不想再找店。", tags: ["返程", "烧麦", "北京"] },
       { id: "huangqi", day: 4, name: "黄旗手把肉", city: "乌兰察布", type: "羊肉", link: shopSearch("黄旗手把肉 乌兰察布"), linkType: "点评搜索", note: "想补一次原汁原味手把肉可搜这家或同名门店。", tags: ["手把肉", "羊肉", "备选"] },
@@ -703,7 +701,7 @@
         km: "约 410 km",
         stay: "住察右后旗或乌兰察布市区",
         theme: "火山地貌",
-        image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1400&q=80",
+        image: "assets/day1-volcano.jpg",
         copy: "早点从北京出发，下午直奔乌兰哈达火山地质公园。建议从南门进入，按 8 号、6 号、3 号火山推进：8 号火山适合捡玛瑙，6 号是火星基地打卡点，3 号适合登顶看全景。",
         scenes: ["乌兰哈达火山地质公园", "8 号火山捡玛瑙", "6 号火星基地", "3 号火山登顶"],
         advice: ["午饭尽量在路上解决", "火山风大，带外套和防晒", "晚餐按住宿地二选一"],
@@ -722,7 +720,7 @@
         km: "约 280 km",
         stay: "住包头",
         theme: "草原与城市晚餐",
-        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=80",
+        image: "assets/day2-grassland.jpg",
         copy: "上午去辉腾锡勒草原或黄花沟，看高山草甸和草原景观。下午驱车前往包头，若时间充裕可顺路安排赛罕塔拉城中草原，晚上吃烤肉或稍麦。",
         scenes: ["辉腾锡勒草原", "黄花沟", "赛罕塔拉城中草原", "包头市区"],
         advice: ["黄花沟游玩时间较长，和包头晚餐要取舍", "草原天气变化快，备雨具", "铁帽烤肉注意烤盘状态"],
@@ -737,31 +735,31 @@
       },
       {
         badge: "Day 3 · 5月29日",
-        title: "包头 → 巴彦淖尔 / 乌海",
-        km: "长线向西，按实际停留调整",
-        stay: "住乌海",
-        theme: "丹霞、雅丹与乌海湖",
-        image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1400&q=80",
-        copy: "从包头出发向西，可安排西部梦幻大峡谷，拍丹霞和雅丹地貌。继续到乌海后，乌海湖本身免费，但进入核心体验通常需要坐船或越野车。",
-        scenes: ["西部梦幻大峡谷", "丹霞 / 雅丹地貌", "乌海湖", "乌海市区"],
-        advice: ["峡谷和乌海湖都适合留足拍照时间", "沙尘天气会影响观感", "晚餐以乌海市区为主更稳"],
+        title: "包头 → 鄂尔多斯",
+        km: "约 180 km",
+        stay: "住鄂尔多斯",
+        theme: "城市过渡与草原沙漠衔接",
+        image: "assets/day3-desert.jpg",
+        copy: "从包头出发前往鄂尔多斯，车程压力比原西线更低。下午可安排康巴什城区、鄂尔多斯博物馆或成吉思汗陵，晚上在市区吃冰煮羊，为第二天沙漠项目留体力。",
+        scenes: ["康巴什城区", "鄂尔多斯博物馆", "成吉思汗陵", "鄂尔多斯市区"],
+        advice: ["这天适合把节奏放松", "下午景点按抵达时间二选一", "晚餐以鄂尔多斯市区为主更稳"],
         weather: {
-          place: "乌海 / 阿拉善左旗周边",
-          temp: "约 28 / 12℃",
-          risk: "干热 + 风沙",
-          summary: "乌海 5 月下旬白天偏晒、空气干，峡谷和湖边都要重点防晒补水。沙尘或大风会影响航拍和远景能见度。",
-          tips: ["准备高倍防晒和足量饮水", "湖边傍晚可能转凉", "峡谷拍照避开正午强光"]
+          place: "鄂尔多斯 / 康巴什",
+          temp: "约 27 / 11℃",
+          risk: "日晒强 + 早晚温差",
+          summary: "鄂尔多斯 5 月下旬白天偏晒，早晚仍会转凉。城市和开阔路段风感明显，长时间户外仍要注意补水和防晒。",
+          tips: ["准备防晒和足量饮水", "傍晚加一件薄外套", "博物馆或陵区按开放时间安排"]
         },
-        reviews: ["王军锅是峡谷附近补给型选择，适合不追求精致环境时使用。", "乌海铁帽烤肉可做晚餐备选，建议现场根据距离、评分和排队决定。", "乌海湖如果要坐船或越野车，提前确认末班时间。"]
+        reviews: ["泽成冰煮羊适合作为抵达鄂尔多斯后的晚餐备选，建议出发前再看近期排队和评价。", "康巴什城区更适合轻松散步和补给，不建议把下午排得过满。", "成吉思汗陵和博物馆按兴趣二选一即可，避免影响第二天沙漠项目体力。"]
       },
       {
         badge: "Day 4 · 5月30日",
-        title: "乌海 → 鄂尔多斯",
-        km: "约 350 km",
+        title: "鄂尔多斯周边",
+        km: "市区往返约 120-180 km",
         stay: "住鄂尔多斯",
         theme: "库布齐沙漠 / 响沙湾",
-        image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1400&q=80",
-        copy: "从乌海前往鄂尔多斯，主轴是库布齐沙漠或响沙湾。可以体验骑骆驼、滑沙、沙漠越野等项目；如果更偏历史文化，可把部分时间给成吉思汗陵。",
+        image: "assets/day3-desert.jpg",
+        copy: "以鄂尔多斯为落脚点安排库布齐沙漠或响沙湾。可以体验骑骆驼、滑沙、沙漠越野等项目；如果前一天没有去成吉思汗陵，也可把部分时间留给历史文化点。",
         scenes: ["库布齐沙漠", "响沙湾", "成吉思汗陵", "鄂尔多斯市区"],
         advice: ["沙漠项目受风和温度影响明显", "手机和相机做好防沙", "景区餐可接受时不用专门绕回市区"],
         weather: {
@@ -779,7 +777,7 @@
         km: "约 600 km",
         stay: "返京",
         theme: "长途返程与云冈石窟",
-        image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1400&q=80",
+        image: "assets/day5-yungang.jpg",
         copy: "返程车程最长，建议一早出发。中途可在大同稍作停留，看云冈石窟，再返回北京。若当天体力不足，云冈石窟可作为机动项，不要影响夜间安全驾驶。",
         scenes: ["大同", "云冈石窟", "返京高速", "北京"],
         advice: ["这天不建议安排复杂餐厅", "云冈石窟按体力机动", "夜间驾驶前留足休息"],
