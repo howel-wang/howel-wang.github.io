@@ -676,22 +676,30 @@
 
   <script>
     const shopSearch = (keyword) => `https://www.dianping.com/search/keyword/0/10_${encodeURIComponent(keyword)}`;
+    const dpShop = (shopId) => ({
+      link: `https://m.dianping.com/shop/${shopId}`,
+      appLink: `dianping://shopinfo?id=${encodeURIComponent(shopId)}`
+    });
+    const dpSearch = (keyword) => ({
+      link: shopSearch(keyword),
+      appLink: `dianping://searchshoplist?keyword=${encodeURIComponent(keyword)}`
+    });
 
     const shops = [
-      { id: "zecheng-wlc", day: 0, name: "泽成·冰煮羊", city: "乌兰察布", type: "羊肉", link: "https://www.dianping.com/shop/H4q6GZgUC9xulCJx", linkType: "商户页", note: "推荐羔羊肉、羔羊排、酸奶饼。评价两极，重点看近期价格和服务反馈。", tags: ["冰煮羊", "酸奶饼", "需看近期评价"] },
-      { id: "xiangli", day: 0, name: "乡里乡亲后旗店", city: "察右后旗", type: "羊肉", link: shopSearch("乡里乡亲后旗店 察哈尔右翼后旗"), linkType: "点评搜索", note: "火山附近备选，主打小羊腿、焖羊肉，适合从火山出来晚餐。", tags: ["小羊腿", "焖羊肉", "近火山"] },
-      { id: "jushunyuan", day: 0, name: "聚顺源烧麦馆", city: "乌兰察布", type: "烧麦", link: shopSearch("聚顺源烧麦馆 乌兰察布"), linkType: "点评搜索", note: "小店路线，适合早饭或简餐；煎烧麦配砖茶更有地方感。", tags: ["煎烧麦", "羊杂", "砖茶"] },
-      { id: "saina", day: 0, name: "塞纳奶食", city: "集宁区", type: "特产", link: shopSearch("塞纳奶食 集宁区"), linkType: "点评搜索", note: "买奶制品特产，干果奶皮子卷是重点候选。", tags: ["奶皮子卷", "特产", "居民区"] },
-      { id: "junwang", day: 1, name: "君王铁帽烤肉 / 牧都铁帽烤肉", city: "包头", type: "烤肉", link: shopSearch("君王铁帽烤肉 牧都铁帽烤肉 包头"), linkType: "点评搜索", note: "赛罕塔拉草原附近晚餐思路，烤鸡蛋和蒙古特色菜可试。", tags: ["铁帽烤肉", "烤鸡蛋", "近草原"] },
-      { id: "tiebao-bt", day: 1, name: "铁帽烤肉(滨河店)", city: "包头", type: "烤肉", link: "https://www.dianping.com/shop/l5w4I07luQmDNUYx", linkType: "商户页", note: "包头铁帽烤肉备选；如果去之前评价不稳，可换同类高分门店。", tags: ["烤肉", "备选", "性价比"] },
-      { id: "shacong", day: 1, name: "沙葱稍麦", city: "包头", type: "烧麦", link: shopSearch("沙葱稍麦 包头 民族东路"), linkType: "点评搜索", note: "民族东路附近找沙葱馅儿烧麦，适合早餐或午餐。", tags: ["沙葱", "稍麦", "出租车师傅推荐"] },
-      { id: "siziwang", day: 1, name: "四子王蒙餐", city: "乌兰察布", type: "羊肉", link: shopSearch("四子王蒙餐 乌兰察布"), linkType: "点评搜索", note: "想体验更完整蒙餐时可作为补充选择。", tags: ["蒙餐", "手把肉", "备选"] },
-      { id: "zecheng-ordos", day: 2, name: "泽成冰煮羊(康巴什店)", city: "鄂尔多斯", type: "羊肉", link: "https://m.dianping.com/shop/128263816", linkType: "商户页", note: "鄂尔多斯热门火锅备选，冰煮羊、羊排和酸奶饼可点。", tags: ["冰煮羊", "康巴什", "晚餐"] },
-      { id: "shamogai", day: 3, name: "沙漠盖饭", city: "响沙湾", type: "景区", link: shopSearch("沙漠盖饭 响沙湾"), linkType: "点评搜索", note: "景区内餐厅，牛肉盖饭分量和价格反馈较好，适合不想折返找饭。", tags: ["牛肉盖饭", "景区内", "不虚高"] },
-      { id: "laosuiyuan", day: 4, name: "老绥元烧麦", city: "呼和浩特/北京等", type: "烧麦", link: "https://www.dianping.com/shop/90983705", linkType: "商户页", note: "老字号烧麦路线；若返程实际停大同，建议用点评搜附近同类。", tags: ["羊肉大葱烧麦", "早餐", "连锁"] },
-      { id: "laosuiyuan-bj", day: 4, name: "老绥元烧麦(昌平店)", city: "北京返程", type: "烧麦", link: "https://www.dianping.com/shop/121523404", linkType: "商户页", note: "接近北京时的备选落点，适合返程太晚不想再找店。", tags: ["返程", "烧麦", "北京"] },
-      { id: "huangqi", day: 4, name: "黄旗手把肉", city: "乌兰察布", type: "羊肉", link: shopSearch("黄旗手把肉 乌兰察布"), linkType: "点评搜索", note: "想补一次原汁原味手把肉可搜这家或同名门店。", tags: ["手把肉", "羊肉", "备选"] },
-      { id: "saihan-dt", day: 4, name: "塞汗部落铁帽烤肉(大同总店)", city: "大同", type: "烤肉", link: "https://m.dianping.com/shop/693547177", linkType: "商户页", note: "如果返程在大同吃饭，可作为云冈石窟后的烤肉备选。", tags: ["大同", "铁帽烤肉", "云冈附近"] }
+      { id: "zecheng-wlc", day: 0, name: "泽成·冰煮羊", city: "乌兰察布", type: "羊肉", ...dpShop("H4q6GZgUC9xulCJx"), linkType: "商户页", note: "推荐羔羊肉、羔羊排、酸奶饼。评价两极，重点看近期价格和服务反馈。", tags: ["冰煮羊", "酸奶饼", "需看近期评价"] },
+      { id: "xiangli", day: 0, name: "乡里乡亲后旗店", city: "察右后旗", type: "羊肉", ...dpSearch("乡里乡亲后旗店 察哈尔右翼后旗"), linkType: "点评搜索", note: "火山附近备选，主打小羊腿、焖羊肉，适合从火山出来晚餐。", tags: ["小羊腿", "焖羊肉", "近火山"] },
+      { id: "jushunyuan", day: 0, name: "聚顺源烧麦馆", city: "乌兰察布", type: "烧麦", ...dpSearch("聚顺源烧麦馆 乌兰察布"), linkType: "点评搜索", note: "小店路线，适合早饭或简餐；煎烧麦配砖茶更有地方感。", tags: ["煎烧麦", "羊杂", "砖茶"] },
+      { id: "saina", day: 0, name: "塞纳奶食", city: "集宁区", type: "特产", ...dpSearch("塞纳奶食 集宁区"), linkType: "点评搜索", note: "买奶制品特产，干果奶皮子卷是重点候选。", tags: ["奶皮子卷", "特产", "居民区"] },
+      { id: "junwang", day: 1, name: "君王铁帽烤肉 / 牧都铁帽烤肉", city: "包头", type: "烤肉", ...dpSearch("君王铁帽烤肉 牧都铁帽烤肉 包头"), linkType: "点评搜索", note: "赛罕塔拉草原附近晚餐思路，烤鸡蛋和蒙古特色菜可试。", tags: ["铁帽烤肉", "烤鸡蛋", "近草原"] },
+      { id: "tiebao-bt", day: 1, name: "铁帽烤肉(滨河店)", city: "包头", type: "烤肉", ...dpShop("l5w4I07luQmDNUYx"), linkType: "商户页", note: "包头铁帽烤肉备选；如果去之前评价不稳，可换同类高分门店。", tags: ["烤肉", "备选", "性价比"] },
+      { id: "shacong", day: 1, name: "沙葱稍麦", city: "包头", type: "烧麦", ...dpSearch("沙葱稍麦 包头 民族东路"), linkType: "点评搜索", note: "民族东路附近找沙葱馅儿烧麦，适合早餐或午餐。", tags: ["沙葱", "稍麦", "出租车师傅推荐"] },
+      { id: "siziwang", day: 1, name: "四子王蒙餐", city: "乌兰察布", type: "羊肉", ...dpSearch("四子王蒙餐 乌兰察布"), linkType: "点评搜索", note: "想体验更完整蒙餐时可作为补充选择。", tags: ["蒙餐", "手把肉", "备选"] },
+      { id: "zecheng-ordos", day: 2, name: "泽成冰煮羊(康巴什店)", city: "鄂尔多斯", type: "羊肉", ...dpShop("128263816"), linkType: "商户页", note: "鄂尔多斯热门火锅备选，冰煮羊、羊排和酸奶饼可点。", tags: ["冰煮羊", "康巴什", "晚餐"] },
+      { id: "shamogai", day: 3, name: "沙漠盖饭", city: "响沙湾", type: "景区", ...dpSearch("沙漠盖饭 响沙湾"), linkType: "点评搜索", note: "景区内餐厅，牛肉盖饭分量和价格反馈较好，适合不想折返找饭。", tags: ["牛肉盖饭", "景区内", "不虚高"] },
+      { id: "laosuiyuan", day: 4, name: "老绥元烧麦", city: "呼和浩特/北京等", type: "烧麦", ...dpShop("90983705"), linkType: "商户页", note: "老字号烧麦路线；若返程实际停大同，建议用点评搜附近同类。", tags: ["羊肉大葱烧麦", "早餐", "连锁"] },
+      { id: "laosuiyuan-bj", day: 4, name: "老绥元烧麦(昌平店)", city: "北京返程", type: "烧麦", ...dpShop("121523404"), linkType: "商户页", note: "接近北京时的备选落点，适合返程太晚不想再找店。", tags: ["返程", "烧麦", "北京"] },
+      { id: "huangqi", day: 4, name: "黄旗手把肉", city: "乌兰察布", type: "羊肉", ...dpSearch("黄旗手把肉 乌兰察布"), linkType: "点评搜索", note: "想补一次原汁原味手把肉可搜这家或同名门店。", tags: ["手把肉", "羊肉", "备选"] },
+      { id: "saihan-dt", day: 4, name: "塞汗部落铁帽烤肉(大同总店)", city: "大同", type: "烤肉", ...dpShop("693547177"), linkType: "商户页", note: "如果返程在大同吃饭，可作为云冈石窟后的烤肉备选。", tags: ["大同", "铁帽烤肉", "云冈附近"] }
     ];
 
     const days = [
@@ -804,13 +812,14 @@
     const reviews = document.getElementById("reviews");
     const allShops = document.getElementById("allShops");
     const filters = document.querySelectorAll(".filter");
+    const isMobile = () => /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 
     function shopCard(shop) {
       return `
         <article class="shop" data-type="${shop.type}">
           <div class="shop-head">
             <h3>${shop.name}</h3>
-            <a class="link" href="${shop.link}" target="_blank" rel="noopener">${shop.linkType}</a>
+            <a class="link" href="${shop.link}" data-app-link="${shop.appLink}" target="_blank" rel="noopener">${shop.linkType}</a>
           </div>
           <p>${shop.city} · ${shop.note}</p>
           <div class="tag-row">${shop.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
@@ -853,6 +862,22 @@
         filter.classList.add("active");
         renderAllShops(filter.dataset.filter);
       });
+    });
+
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest("a[data-app-link]");
+      if (!link || !isMobile()) return;
+
+      event.preventDefault();
+      const fallbackUrl = link.href;
+      const openedAt = Date.now();
+      window.location.href = link.dataset.appLink;
+
+      window.setTimeout(() => {
+        if (Date.now() - openedAt < 1600 && document.visibilityState === "visible") {
+          window.location.href = fallbackUrl;
+        }
+      }, 1200);
     });
 
     renderDay(0);
