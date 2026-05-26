@@ -3,40 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>北京到内蒙古 5.27-5.31 自驾计划</title>
+  <title>北京到乌兰察布、呼和浩特、大同 5.26-5.31 自驾计划</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #18201c;
-      --muted: #657067;
+      --muted: #5e6b61;
       --line: #dfe5dd;
-      --paper: #fbfaf4;
-      --panel: #ffffff;
-      --grass: #5f8a61;
-      --lava: #b4573d;
-      --sand: #c49450;
-      --lake: #3c7c8c;
-      --night: #293a44;
-      --shadow: 0 16px 40px rgba(41, 58, 68, .12);
+      --paper: #FAF8F2;
+      --panel: rgba(255, 255, 255, 0.78);
+      --glass-border: rgba(223, 229, 221, 0.6);
+      
+      --grass: #4e7050;
+      --grass-bg: rgba(78, 112, 80, 0.08);
+      --lava: #a34e36;
+      --lava-bg: rgba(163, 78, 54, 0.08);
+      --sand: #ab7f3b;
+      --sand-bg: rgba(171, 127, 59, 0.08);
+      --lake: #2c6573;
+      --lake-bg: rgba(44, 101, 115, 0.08);
+      --night: #23343e;
+      --night-bg: rgba(35, 52, 62, 0.08);
+      
+      --shadow-sm: 0 4px 12px rgba(24, 32, 28, 0.04);
+      --shadow-md: 0 12px 32px rgba(24, 32, 28, 0.08);
+      --shadow-lg: 0 24px 56px rgba(24, 32, 28, 0.12);
+      
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
-      background:
-        linear-gradient(rgba(251, 250, 244, .72), rgba(251, 250, 244, .92)),
-        url("assets/hero-inner-mongolia.jpg") center top / cover fixed;
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(rgba(250, 248, 242, 0.8), rgba(250, 248, 242, 0.94)),
+        url("assets/hero-inner-mongolia.jpg");
+      background-position: center top;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (min-width: 901px) {
+      body {
+        background-size: cover;
+        background-attachment: fixed;
+      }
     }
 
     a { color: inherit; }
 
+    /* Scroll progress bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--lava), var(--grass), var(--lake), var(--sand));
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s ease;
+    }
+
+    /* Hero section */
     .hero {
-      min-height: 76vh;
+      min-height: 70vh;
       display: grid;
       align-items: end;
-      padding: 32px clamp(18px, 5vw, 72px);
+      padding: 64px clamp(16px, 6vw, 80px) 40px;
       position: relative;
       overflow: hidden;
     }
@@ -45,7 +92,7 @@
       content: "";
       position: absolute;
       inset: auto 0 0;
-      height: 36%;
+      height: 40%;
       background: linear-gradient(transparent, var(--paper));
       pointer-events: none;
     }
@@ -54,97 +101,122 @@
       position: relative;
       z-index: 1;
       max-width: 1080px;
-      padding-bottom: 7vh;
+      width: 100%;
     }
 
     .eyebrow {
       display: inline-flex;
       gap: 8px;
       align-items: center;
-      padding: 8px 12px;
-      border: 1px solid rgba(255,255,255,.7);
+      padding: 6px 16px;
+      border: 1px solid var(--glass-border);
       border-radius: 999px;
-      background: rgba(255,255,255,.72);
+      background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       color: var(--night);
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 700;
+      box-shadow: var(--shadow-sm);
     }
 
     h1 {
-      margin: 22px 0 14px;
-      max-width: 920px;
-      font-size: clamp(42px, 7vw, 88px);
-      line-height: .96;
-      letter-spacing: 0;
+      margin: 24px 0 16px;
+      max-width: 960px;
+      font-size: clamp(34px, 5.5vw, 68px);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -1px;
     }
 
     .lead {
-      max-width: 760px;
+      max-width: 780px;
       margin: 0;
-      font-size: clamp(17px, 2.4vw, 23px);
+      font-size: clamp(16px, 2vw, 20px);
       line-height: 1.6;
-      color: #334139;
-      font-weight: 520;
+      color: var(--muted);
+      font-weight: 500;
     }
 
     .hero-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 32px;
     }
 
     .stat {
-      min-width: 128px;
-      padding: 14px 16px;
-      border: 1px solid rgba(255,255,255,.78);
-      border-radius: 8px;
-      background: rgba(255,255,255,.74);
+      padding: 16px;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.65);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), background-color var(--transition-fast);
+    }
+    
+    .stat:hover {
+      transform: translateY(-2px);
+      background-color: rgba(255, 255, 255, 0.85);
     }
 
     .stat strong {
       display: block;
-      font-size: 20px;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--night);
     }
 
     .stat span {
       display: block;
-      margin-top: 3px;
+      margin-top: 4px;
       color: var(--muted);
       font-size: 13px;
+      font-weight: 500;
     }
 
     main {
       width: min(1180px, calc(100% - 32px));
-      margin: 0 auto 64px;
+      margin: 0 auto 80px;
     }
 
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      overflow: hidden;
+      transition: box-shadow var(--transition-fast);
+    }
+    
+    .panel:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Route board section */
     .route-board {
       display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 18px;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
       align-items: stretch;
-      margin-top: -42px;
+      margin-top: -32px;
       position: relative;
       z-index: 2;
     }
 
-    .panel {
-      background: rgba(255,255,255,.92);
-      border: 1px solid rgba(223, 229, 221, .92);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-    }
-
     .route-map {
-      padding: 22px;
-      min-height: 280px;
+      padding: 24px;
     }
 
     .map-shot {
       margin: 0;
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--line);
     }
 
     .map-shot img {
@@ -152,106 +224,82 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       object-fit: cover;
-      border: 1px solid var(--line);
-      border-radius: 8px;
       background: #eef1ea;
+      transition: transform var(--transition-normal);
+    }
+
+    .map-shot:hover img {
+      transform: scale(1.02);
+    }
+
+    .zoom-indicator {
+      position: absolute;
+      inset: 0;
+      background: rgba(24, 32, 28, 0.4);
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: opacity var(--transition-fast);
+      backdrop-filter: blur(2px);
+    }
+    
+    .map-shot:hover .zoom-indicator {
+      opacity: 1;
     }
 
     .map-shot figcaption {
-      margin-top: 10px;
+      margin: 0;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.95);
+      border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
     .section-title {
       display: flex;
       justify-content: space-between;
-      align-items: end;
+      align-items: flex-end;
       gap: 16px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .section-title h2 {
       margin: 0;
-      font-size: 24px;
-      letter-spacing: 0;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
 
     .section-title p {
       margin: 0;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13.5px;
+      font-weight: 500;
     }
 
-    .path {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-      padding: 28px 6px 12px;
-    }
-
-    .path::before {
-      content: "";
-      position: absolute;
-      left: 7%;
-      right: 7%;
-      top: 47px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--lava), var(--grass), var(--lake), var(--sand), var(--night));
-      border-radius: 999px;
-    }
-
-    .stop {
-      position: relative;
-      text-align: center;
-      min-width: 0;
-    }
-
-    .dot {
-      width: 18px;
-      height: 18px;
-      margin: 9px auto 12px;
-      border: 4px solid #fff;
-      border-radius: 50%;
-      background: var(--lava);
-      box-shadow: 0 0 0 1px rgba(24,32,28,.16);
-      position: relative;
-      z-index: 1;
-    }
-
-    .stop:nth-child(2) .dot { background: var(--grass); }
-    .stop:nth-child(3) .dot { background: var(--lake); }
-    .stop:nth-child(4) .dot { background: var(--sand); }
-    .stop:nth-child(5) .dot { background: var(--night); }
-    .stop:nth-child(6) .dot { background: var(--lava); }
-
-    .stop b {
-      display: block;
-      font-size: 14px;
-      overflow-wrap: anywhere;
-    }
-
-    .stop span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
+    /* Tips section */
     .tips {
-      padding: 22px;
-      display: grid;
-      gap: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     .tip {
       display: grid;
-      grid-template-columns: 34px 1fr;
+      grid-template-columns: 36px 1fr;
       gap: 12px;
       align-items: start;
-      padding-bottom: 12px;
+      padding-bottom: 14px;
       border-bottom: 1px solid var(--line);
     }
 
@@ -261,79 +309,142 @@
     }
 
     .tip-icon {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       display: grid;
       place-items: center;
-      border-radius: 8px;
-      background: #eef3ea;
+      border-radius: var(--radius-sm);
+      background: #edf1e9;
+      font-size: 18px;
     }
 
     .tip h3 {
       margin: 0 0 4px;
       font-size: 15px;
+      font-weight: 700;
     }
 
     .tip p {
       margin: 0;
       color: var(--muted);
-      line-height: 1.55;
-      font-size: 14px;
+      line-height: 1.5;
+      font-size: 13.5px;
     }
 
-    .day-tabs {
+    /* Sticky Tabs Container */
+    .day-tabs-container {
       position: sticky;
       top: 0;
-      z-index: 5;
-      margin: 26px 0 18px;
-      padding: 10px;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      background: rgba(251,250,244,.88);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--line);
-      border-radius: 8px;
+      z-index: 90;
+      margin: 32px 0 24px;
+      background: rgba(250, 248, 242, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 8px 0;
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+    }
+
+    .day-tabs-wrapper {
+      position: relative;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    
+    .day-tabs-wrapper::before,
+    .day-tabs-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 32px;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .day-tabs-wrapper::before {
+      left: 0;
+      background: linear-gradient(90deg, rgba(250, 248, 242, 0.95), transparent);
+    }
+    .day-tabs-wrapper::after {
+      right: 0;
+      background: linear-gradient(-90deg, rgba(250, 248, 242, 0.95), transparent);
+    }
+    .day-tabs-wrapper.scroll-left::before { opacity: 1; }
+    .day-tabs-wrapper.scroll-right::after { opacity: 1; }
+
+    .day-tabs {
+      padding: 4px clamp(16px, 4vw, 24px);
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .day-tabs::-webkit-scrollbar {
+      display: none;
     }
 
     .tab {
+      flex: 0 0 calc(20% - 10px);
+      min-width: 170px;
+      scroll-snap-align: start;
       appearance: none;
-      border: 1px solid transparent;
-      border-radius: 7px;
-      background: transparent;
-      color: var(--night);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.5);
+      color: var(--ink);
       cursor: pointer;
-      padding: 12px 10px;
+      padding: 14px 16px;
       font: inherit;
       text-align: left;
-      transition: .18s ease;
+      transition: all var(--transition-fast);
+    }
+
+    .tab:hover {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: var(--muted);
+      transform: translateY(-1px);
     }
 
     .tab strong {
       display: block;
       font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
     }
 
     .tab span {
       display: block;
-      margin-top: 4px;
       color: var(--muted);
       font-size: 12px;
-      overflow-wrap: anywhere;
+      font-weight: 500;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .tab.active {
       background: var(--night);
       color: #fff;
       border-color: var(--night);
+      box-shadow: var(--shadow-md);
     }
 
-    .tab.active span { color: rgba(255,255,255,.72); }
+    .tab.active span {
+      color: rgba(255, 255, 255, 0.75);
+    }
 
+    /* Day View layout */
     .day-view {
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
-      gap: 18px;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+      gap: 20px;
       align-items: start;
     }
 
@@ -342,250 +453,689 @@
     }
 
     .day-image {
-      min-height: 260px;
+      height: 320px;
       background-position: center;
       background-size: cover;
       position: relative;
+      transition: background-image 0.5s ease-in-out;
     }
 
     .day-image::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,.42));
+      background: linear-gradient(180deg, rgba(24,32,28,0.1), rgba(24,32,28,0.6));
     }
 
     .day-badge {
       position: absolute;
-      left: 18px;
-      bottom: 18px;
+      left: 24px;
+      bottom: 24px;
       z-index: 1;
-      padding: 10px 12px;
-      border-radius: 7px;
-      background: rgba(255,255,255,.86);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-size: 14px;
       font-weight: 800;
+      color: var(--night);
+      box-shadow: var(--shadow-sm);
     }
 
     .day-content {
-      padding: 22px;
+      padding: 24px;
     }
 
     .day-content h2 {
-      margin: 0 0 8px;
-      font-size: 28px;
+      margin: 0 0 12px;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
 
-    .meta {
+    /* Dashboard widget */
+    .itinerary-dashboard {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .dash-item {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 14px 0 18px;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      transition: transform var(--transition-fast), background var(--transition-fast);
+    }
+    
+    .dash-item:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.9);
+    }
+    
+    .dash-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    
+    .dash-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    
+    .dash-label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .dash-value {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .pill {
-      display: inline-flex;
+    .alert-banner {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: #f1f4ee;
-      color: #3e4c43;
-      font-size: 13px;
-      font-weight: 700;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--lava-bg);
+      border: 1px solid rgba(163, 78, 54, 0.15);
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      color: var(--lava);
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+    
+    .alert-icon {
+      font-size: 16px;
+      flex-shrink: 0;
     }
 
     .copy {
-      color: #3f4a43;
-      line-height: 1.72;
+      color: #334139;
+      line-height: 1.7;
       font-size: 15px;
+      margin: 0 0 24px;
     }
 
     .mini-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 18px;
+      gap: 16px;
+      margin-top: 24px;
     }
 
     .mini {
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
+      padding: 20px;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .mini h3 {
-      margin: 0 0 8px;
-      font-size: 15px;
+      margin: 0 0 14px;
+      font-size: 16px;
+      font-weight: 800;
     }
-
+    
     .mini ul {
       margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.7;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .mini li {
+      position: relative;
+      padding-left: 22px;
       font-size: 14px;
+      line-height: 1.5;
+      color: #3f4a43;
+    }
+
+    .mini-scenes li::before {
+      content: '📍';
+      position: absolute;
+      left: 0;
+      top: 0.1em;
+      font-size: 13px;
+    }
+
+    .mini-advice li::before {
+      content: '💡';
+      position: absolute;
+      left: 0;
+      top: 0.1em;
+      font-size: 13px;
     }
 
     .side-stack {
       display: grid;
-      gap: 18px;
+      gap: 20px;
+    }
+
+    .weather-panel {
+      padding: 20px;
+    }
+    
+    .weather-panel h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+    
+    .weather-box {
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    
+    .weather-temp {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    
+    .temp-icon {
+      font-size: 32px;
+    }
+    
+    .temp-info h3 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    
+    .temp-info p {
+      margin: 2px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    
+    .weather-desc {
+      margin: 0 0 12px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #334139;
+    }
+    
+    .weather-tips h4 {
+      margin: 0 0 6px;
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+    
+    .weather-tips ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.6;
     }
 
     .food-panel, .review-panel {
-      padding: 20px;
+      padding: 24px;
     }
 
     .food-panel h2, .review-panel h2 {
-      margin: 0 0 14px;
-      font-size: 22px;
+      margin: 0 0 16px;
+      font-size: 18px;
+      font-weight: 800;
     }
 
     .shop-list {
-      display: grid;
-      gap: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .shop {
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
+      padding: 16px;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
     }
-
+    
+    .shop:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
     .shop-head {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
       gap: 12px;
-      align-items: start;
-      margin-bottom: 8px;
     }
-
+    
     .shop h3 {
       margin: 0;
-      font-size: 16px;
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.4;
     }
-
+    
     .shop p {
       margin: 0;
       color: var(--muted);
-      line-height: 1.55;
-      font-size: 14px;
+      font-size: 13px;
+      line-height: 1.5;
     }
-
+    
+    .shop-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
     .link {
-      flex: 0 0 auto;
+      flex-shrink: 0;
       text-decoration: none;
-      padding: 7px 9px;
-      border: 1px solid #d8b782;
-      border-radius: 7px;
-      color: #76501d;
-      background: #fff8ea;
+      padding: 6px 12px;
+      border: 1px solid rgba(171, 127, 59, 0.3);
+      border-radius: 6px;
+      color: #925f1c;
+      background: var(--sand-bg);
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all var(--transition-fast);
+    }
+    
+    .link:hover {
+      background: #fcefdc;
+      border-color: rgba(171, 127, 59, 0.5);
+      color: #7d4e12;
     }
 
     .tag-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 10px;
     }
 
     .tag {
-      padding: 5px 7px;
-      border-radius: 999px;
-      background: #f5f1e8;
-      color: #685c49;
-      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      background: rgba(24, 32, 28, 0.04);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
     }
 
     .review {
-      padding: 13px 0;
+      padding: 16px 0;
       border-top: 1px solid var(--line);
-      color: #3f4a43;
-      line-height: 1.65;
+      color: #334139;
+      line-height: 1.6;
       font-size: 14px;
+      margin: 0;
     }
 
     .review:first-of-type { border-top: 0; padding-top: 0; }
 
+    /* All Shops filter and grid */
+    .all-shops {
+      margin-top: 32px;
+      padding: 24px;
+    }
+    
     .filter-bar {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
       margin: 18px 0;
+      padding: 4px 0;
     }
-
+    
+    .filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+    
     .filter {
-      border: 1px solid var(--line);
+      flex-shrink: 0;
+      border: 1px solid var(--glass-border);
       border-radius: 999px;
-      background: #fff;
-      padding: 9px 12px;
+      background: rgba(255,255,255,0.6);
+      padding: 8px 16px;
       cursor: pointer;
-      font: inherit;
-      color: var(--night);
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--ink);
+      transition: all var(--transition-fast);
     }
-
+    
+    .filter:hover {
+      background: #fff;
+      border-color: var(--muted);
+    }
+    
     .filter.active {
       background: var(--grass);
       color: #fff;
       border-color: var(--grass);
-    }
-
-    .all-shops {
-      margin-top: 24px;
-      padding: 22px;
+      box-shadow: var(--shadow-sm);
     }
 
     .all-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
     }
 
     .footer-note {
       margin: 24px 0 0;
-      padding: 18px;
-      border: 1px dashed #c8d0c7;
-      border-radius: 8px;
+      padding: 16px;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius-md);
       color: var(--muted);
+      font-size: 13px;
       line-height: 1.6;
-      background: rgba(255,255,255,.76);
+      background: rgba(255,255,255,0.4);
     }
 
+    /* Back to Top button styling */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px) scale(0.9);
+      transition: opacity var(--transition-fast), visibility var(--transition-fast), transform var(--transition-fast);
+    }
+    
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+    
+    .back-to-top:hover {
+      background: #fff;
+      transform: scale(1.05);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .progress-ring {
+      position: absolute;
+      transform: rotate(-90deg);
+      width: 44px;
+      height: 44px;
+    }
+    
+    .progress-ring__circle-bg {
+      stroke: rgba(24, 32, 28, 0.06);
+    }
+    
+    .progress-ring__circle {
+      stroke: var(--grass);
+      stroke-dasharray: 113.1;
+      stroke-dashoffset: 113.1;
+      transition: stroke-dashoffset 0.1s ease;
+    }
+    
+    .back-to-top .arrow {
+      font-size: 18px;
+      color: var(--ink);
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Open transitions customization */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 0.3s;
+    }
+
+    /* Lightbox Modal Dialog styles */
+    .map-dialog {
+      border: none;
+      padding: 0;
+      background: transparent;
+      max-width: 95vw;
+      max-height: 95vh;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      outline: none;
+    }
+
+    .map-dialog::backdrop {
+      background: rgba(24, 32, 28, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      transition: opacity var(--transition-normal);
+    }
+
+    .map-dialog[open]::backdrop {
+      opacity: 1;
+    }
+
+    .dialog-wrapper {
+      position: relative;
+      background: var(--paper);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      animation: zoomIn var(--transition-normal);
+      max-width: 100%;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .close-dialog {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(24, 32, 28, 0.05);
+      border: none;
+      font-size: 24px;
+      line-height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--night);
+      transition: background var(--transition-fast);
+      z-index: 10;
+    }
+
+    .close-dialog:hover {
+      background: rgba(24, 32, 28, 0.1);
+    }
+
+    .dialog-body {
+      width: 80vw;
+      height: 70vh;
+      max-width: 1200px;
+      max-height: 700px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+      background: #eef1ea;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      cursor: zoom-in;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .dialog-body img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      transition: width var(--transition-fast), max-width var(--transition-fast), max-height var(--transition-fast);
+      transform-origin: center center;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Zoomed state style */
+    .dialog-body.zoomed {
+      cursor: grab;
+      display: block; /* allow overflow scrolling */
+    }
+
+    .dialog-body.zoomed img {
+      max-width: none !important;
+      max-height: none !important;
+      width: 200%;
+      height: auto;
+      border-radius: 0;
+    }
+
+    .dialog-tip {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* Mobile overrides for dialog size */
+    @media (max-width: 768px) {
+      .map-dialog {
+        max-width: 100vw;
+        max-height: 100vh;
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+      }
+
+      .dialog-wrapper {
+        border-radius: 0;
+        padding: 16px;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .close-dialog {
+        top: 12px;
+        right: 12px;
+      }
+
+      .dialog-body {
+        height: 80vh;
+        max-height: none;
+      }
+
+      .dialog-body.zoomed img {
+        width: 300%; /* even larger zoom on mobile */
+      }
+    }
+
+    /* Responsive layouts rules */
     @media (max-width: 900px) {
       .route-board, .day-view { grid-template-columns: 1fr; }
-      .day-tabs { grid-template-columns: repeat(2, 1fr); position: static; }
       .all-grid { grid-template-columns: 1fr 1fr; }
-      .path { grid-template-columns: repeat(3, 1fr); }
-      .path::before { display: none; }
+      .hero { min-height: auto; padding: 48px 20px 32px; }
+      .day-image { height: 260px; }
+      .tab { flex: 0 0 190px; }
     }
 
     @media (max-width: 620px) {
-      .hero { min-height: 70vh; padding: 22px 16px; }
-      main { width: min(100% - 20px, 1180px); }
-      .route-board { margin-top: -24px; }
-      .day-tabs, .mini-grid, .all-grid { grid-template-columns: 1fr; }
-      .day-image { min-height: 210px; }
-      .shop-head { display: grid; }
-      .link { width: max-content; }
-      .section-title { display: block; }
-      .section-title p { margin-top: 6px; }
+      main { width: min(100% - 16px, 1180px); }
+      .route-board { margin-top: -16px; }
+      .mini-grid, .all-grid { grid-template-columns: 1fr; }
+      .day-image { height: 200px; }
+      .day-badge { left: 16px; bottom: 16px; padding: 6px 12px; }
+      .day-content { padding: 18px; }
+      .shop-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .link { width: 100%; justify-content: center; }
+      .section-title { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .itinerary-dashboard { grid-template-columns: 1fr; gap: 8px; }
+      .zoom-indicator {
+        inset: auto 12px 12px auto;
+        opacity: 1;
+        background: rgba(24, 32, 28, 0.7);
+        border-radius: 20px;
+        padding: 6px 12px;
+        flex-direction: row;
+        font-size: 12px;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .zoom-indicator span {
+        display: inline;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
   <header class="hero">
     <div class="hero-inner">
-      <div class="eyebrow">2026.05.27 - 05.31 · 北京出发 · 火山沙漠大环线</div>
-      <h1>北京到内蒙古自驾计划</h1>
-      <p class="lead">5 天串联乌兰哈达火山、辉腾锡勒草原、包头、鄂尔多斯、库布齐沙漠和大同云冈石窟。页面可按日期切换，餐厅卡片附大众点评跳转。</p>
+      <div class="eyebrow">2026.05.26 - 05.31 · 北京抵达 · 草原古城小环线</div>
+      <h1>北京到乌兰察布、呼和浩特、大同自驾计划</h1>
+      <p class="lead">26 日抵达北京，27 日起串联乌兰哈达火山、黄花沟草原、辉腾草原日落、呼和浩特老城、大同云冈石窟与悬空寺。页面可按日期切换，餐厅卡片附大众点评跳转。</p>
       <div class="hero-stats">
-        <div class="stat"><strong>5 天</strong><span>每日独立行程</span></div>
-        <div class="stat"><strong>约 1450 km</strong><span>核心长途路段合计</span></div>
-        <div class="stat"><strong>3 类地貌</strong><span>草原 / 火山 / 沙漠</span></div>
-        <div class="stat"><strong>14 家</strong><span>餐厅与特产备选</span></div>
+        <div class="stat"><strong>6 天</strong><span>含抵达北京</span></div>
+        <div class="stat"><strong>5 段</strong><span>自驾行程</span></div>
+        <div class="stat"><strong>4 类体验</strong><span>火山 / 草原 / 古城 / 石窟</span></div>
+        <div class="stat"><strong>12 项</strong><span>餐厅与补给备选</span></div>
       </div>
     </div>
   </header>
@@ -595,17 +1145,24 @@
       <div class="panel route-map">
         <div class="section-title">
           <h2>路线总览</h2>
-          <p>路线示意图 · 点下方日期查看当天详情</p>
+          <p>路线示意图 · 点击地图可放大查看详情</p>
         </div>
-        <figure class="map-shot">
-          <img src="assets/inner-mongolia-route-map.svg" alt="北京到内蒙古五日自驾路线示意图，标注北京、乌兰察布、包头、鄂尔多斯、大同及返京路线" />
+        <figure class="map-shot" id="mapTrigger" role="button" aria-label="放大查看路线图" style="cursor: zoom-in; position: relative;">
+          <img src="assets/inner-mongolia-route-map.svg" alt="北京到乌兰察布、辉腾草原、呼和浩特、大同五日自驾路线示意图" />
+          <div class="zoom-indicator">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+              <path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/>
+            </svg>
+            <span>点击放大路线图</span>
+          </div>
           <figcaption>路线为规划概览连线；实际行车路况、收费站和绕行请以导航 App 实时路线为准。</figcaption>
         </figure>
       </div>
       <aside class="panel tips">
         <div class="tip">
           <div class="tip-icon">⏱</div>
-          <div><h3>早出发优先</h3><p>Day 1 和 Day 5 车程较长，建议把城市晚餐作为机动项，不要压太满。</p></div>
+          <div><h3>早出发优先</h3><p>Day 1 和 Day 5 车程较长，建议把夜游和晚餐作为机动项，不要压太满。</p></div>
         </div>
         <div class="tip">
           <div class="tip-icon">⛰</div>
@@ -613,7 +1170,7 @@
         </div>
         <div class="tip">
           <div class="tip-icon">🔎</div>
-          <div><h3>点评链接说明</h3><p>能确认商户页的放直达链接；不能确认唯一门店的放大众点评搜索，出发前看近期评价。</p></div>
+          <div><h3>点评链接说明</h3><p>餐厅以大众点评搜索为主，避免误指门店；出发前再看营业时间和近期评价。</p></div>
         </div>
         <div class="tip">
           <div class="tip-icon">🌤</div>
@@ -622,33 +1179,103 @@
       </aside>
     </section>
 
-    <nav class="day-tabs" aria-label="日期切换">
-      <button class="tab active" data-day="0"><strong>Day 1</strong><span>北京 → 乌兰察布</span></button>
-      <button class="tab" data-day="1"><strong>Day 2</strong><span>乌兰察布 → 包头</span></button>
-      <button class="tab" data-day="2"><strong>Day 3</strong><span>包头 → 鄂尔多斯</span></button>
-      <button class="tab" data-day="3"><strong>Day 4</strong><span>鄂尔多斯周边</span></button>
-      <button class="tab" data-day="4"><strong>Day 5</strong><span>鄂尔多斯 → 北京</span></button>
-    </nav>
+    <!-- Date selector horizontal sticky tabs container -->
+    <div class="day-tabs-container">
+      <div class="day-tabs-wrapper" id="tabsWrapper">
+        <nav class="day-tabs" id="dayTabs" aria-label="日期切换">
+          <button class="tab active" data-day="0"><strong>5月27日</strong><span>北京 → 乌兰察布</span></button>
+          <button class="tab" data-day="1"><strong>5月28日</strong><span>乌兰察布 → 辉腾草原</span></button>
+          <button class="tab" data-day="2"><strong>5月29日</strong><span>辉腾草原 → 呼和浩特</span></button>
+          <button class="tab" data-day="3"><strong>5月30日</strong><span>呼和浩特 → 大同</span></button>
+          <button class="tab" data-day="4"><strong>5月31日</strong><span>大同 → 北京</span></button>
+        </nav>
+      </div>
+    </div>
 
     <section class="day-view">
       <article class="panel day-main">
         <div class="day-image" id="dayImage"><div class="day-badge" id="dayBadge"></div></div>
         <div class="day-content">
           <h2 id="dayTitle"></h2>
-          <div class="meta" id="dayMeta"></div>
+          
+          <!-- Itinerary Dashboard -->
+          <div class="itinerary-dashboard" id="dayMeta">
+            <div class="dash-item">
+              <span class="dash-icon">🚗</span>
+              <div class="dash-info">
+                <span class="dash-label">里程车程</span>
+                <span class="dash-value" id="dashKm">-</span>
+              </div>
+            </div>
+            <div class="dash-item">
+              <span class="dash-icon">🏨</span>
+              <div class="dash-info">
+                <span class="dash-label">今日住宿</span>
+                <span class="dash-value" id="dashStay">-</span>
+              </div>
+            </div>
+            <div class="dash-item">
+              <span class="dash-icon">📍</span>
+              <div class="dash-info">
+                <span class="dash-label">今日主题</span>
+                <span class="dash-value" id="dashTheme">-</span>
+              </div>
+            </div>
+            <div class="dash-item">
+              <span class="dash-icon">🌤</span>
+              <div class="dash-info">
+                <span class="dash-label">今日天气</span>
+                <span class="dash-value" id="dashWeather">-</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Alert Banner -->
+          <div class="alert-banner" id="dashAlert" style="display: none;">
+            <span class="alert-icon">⚠</span>
+            <span class="alert-text" id="dashAlertText"></span>
+          </div>
+
           <p class="copy" id="dayCopy"></p>
+          
           <div class="mini-grid">
-            <div class="mini"><h3>景点重点</h3><ul id="scenes"></ul></div>
-            <div class="mini"><h3>当天建议</h3><ul id="advice"></ul></div>
+            <div class="mini mini-scenes">
+              <h3>景点重点</h3>
+              <ul id="scenes"></ul>
+            </div>
+            <div class="mini mini-advice">
+              <h3>当天建议</h3>
+              <ul id="advice"></ul>
+            </div>
           </div>
         </div>
       </article>
 
       <aside class="side-stack">
+        <!-- Weather details Panel (New) -->
+        <section class="panel weather-panel">
+          <h2>今日天气与防护建议</h2>
+          <div class="weather-box">
+            <div class="weather-temp">
+              <span class="temp-icon">🌤</span>
+              <div class="temp-info">
+                <h3 id="weatherPlace">-</h3>
+                <p id="weatherTemp">-</p>
+              </div>
+            </div>
+            <p class="weather-desc" id="weatherDesc">-</p>
+            <div class="weather-tips">
+              <h4>穿衣与防护重点：</h4>
+              <ul id="weatherTipsList"></ul>
+            </div>
+          </div>
+        </section>
+
         <section class="panel food-panel">
           <h2>当天餐厅</h2>
           <div class="shop-list" id="dayShops"></div>
         </section>
+        
         <section class="panel review-panel">
           <h2>评价与避坑</h2>
           <div id="reviews"></div>
@@ -663,16 +1290,37 @@
       </div>
       <div class="filter-bar" id="filters">
         <button class="filter active" data-filter="all">全部</button>
-        <button class="filter" data-filter="羊肉">羊肉</button>
+        <button class="filter" data-filter="蒙餐">蒙餐</button>
         <button class="filter" data-filter="烧麦">烧麦</button>
-        <button class="filter" data-filter="烤肉">烤肉</button>
+        <button class="filter" data-filter="小吃">小吃</button>
+        <button class="filter" data-filter="面食">面食</button>
         <button class="filter" data-filter="特产">特产</button>
-        <button class="filter" data-filter="景区">景区餐</button>
+        <button class="filter" data-filter="景区">景区</button>
       </div>
       <div class="all-grid" id="allShops"></div>
       <p class="footer-note">大众点评页面可能要求在 App 内查看完整电话、地址、团购和实时排队信息。本页的链接用于快速跳转检索，不替代出发前核对。</p>
     </section>
   </main>
+
+  <!-- Lightbox Modal Dialog (New) -->
+  <dialog id="mapDialog" class="map-dialog">
+    <div class="dialog-wrapper">
+      <button class="close-dialog" id="closeDialog" aria-label="关闭">&times;</button>
+      <div class="dialog-body">
+        <img src="assets/inner-mongolia-route-map.svg" alt="放大自驾路线图" />
+      </div>
+      <p class="dialog-tip">🗺️ 点击地图可放大/缩小 · 拖拽可查看细节 · 点击空白处关闭</p>
+    </div>
+  </dialog>
+
+  <!-- Back to Top Button with SVG Progress Ring (New) -->
+  <button class="back-to-top" id="backToTop" aria-label="回到顶部">
+    <svg class="progress-ring" width="44" height="44">
+      <circle class="progress-ring__circle-bg" stroke-width="3" fill="transparent" r="18" cx="22" cy="22"/>
+      <circle class="progress-ring__circle" stroke-width="3" fill="transparent" r="18" cx="22" cy="22"/>
+    </svg>
+    <span class="arrow">↑</span>
+  </button>
 
   <script>
     const shopSearch = (keyword) => `https://www.dianping.com/search/keyword/0/10_${encodeURIComponent(keyword)}`;
@@ -686,109 +1334,107 @@
     });
 
     const shops = [
-      { id: "zecheng-wlc", day: 0, name: "泽成·冰煮羊", city: "乌兰察布", type: "羊肉", ...dpShop("H4q6GZgUC9xulCJx"), linkType: "商户页", note: "推荐羔羊肉、羔羊排、酸奶饼。评价两极，重点看近期价格和服务反馈。", tags: ["冰煮羊", "酸奶饼", "需看近期评价"] },
-      { id: "xiangli", day: 0, name: "乡里乡亲后旗店", city: "察右后旗", type: "羊肉", ...dpSearch("乡里乡亲后旗店 察哈尔右翼后旗"), linkType: "点评搜索", note: "火山附近备选，主打小羊腿、焖羊肉，适合从火山出来晚餐。", tags: ["小羊腿", "焖羊肉", "近火山"] },
-      { id: "jushunyuan", day: 0, name: "聚顺源烧麦馆", city: "乌兰察布", type: "烧麦", ...dpSearch("聚顺源烧麦馆 乌兰察布"), linkType: "点评搜索", note: "小店路线，适合早饭或简餐；煎烧麦配砖茶更有地方感。", tags: ["煎烧麦", "羊杂", "砖茶"] },
-      { id: "saina", day: 0, name: "塞纳奶食", city: "集宁区", type: "特产", ...dpSearch("塞纳奶食 集宁区"), linkType: "点评搜索", note: "买奶制品特产，干果奶皮子卷是重点候选。", tags: ["奶皮子卷", "特产", "居民区"] },
-      { id: "junwang", day: 1, name: "君王铁帽烤肉 / 牧都铁帽烤肉", city: "包头", type: "烤肉", ...dpSearch("君王铁帽烤肉 牧都铁帽烤肉 包头"), linkType: "点评搜索", note: "赛罕塔拉草原附近晚餐思路，烤鸡蛋和蒙古特色菜可试。", tags: ["铁帽烤肉", "烤鸡蛋", "近草原"] },
-      { id: "tiebao-bt", day: 1, name: "铁帽烤肉(滨河店)", city: "包头", type: "烤肉", ...dpShop("l5w4I07luQmDNUYx"), linkType: "商户页", note: "包头铁帽烤肉备选；如果去之前评价不稳，可换同类高分门店。", tags: ["烤肉", "备选", "性价比"] },
-      { id: "shacong", day: 1, name: "沙葱稍麦", city: "包头", type: "烧麦", ...dpSearch("沙葱稍麦 包头 民族东路"), linkType: "点评搜索", note: "民族东路附近找沙葱馅儿烧麦，适合早餐或午餐。", tags: ["沙葱", "稍麦", "出租车师傅推荐"] },
-      { id: "siziwang", day: 1, name: "四子王蒙餐", city: "乌兰察布", type: "羊肉", ...dpSearch("四子王蒙餐 乌兰察布"), linkType: "点评搜索", note: "想体验更完整蒙餐时可作为补充选择。", tags: ["蒙餐", "手把肉", "备选"] },
-      { id: "zecheng-ordos", day: 2, name: "泽成冰煮羊(康巴什店)", city: "鄂尔多斯", type: "羊肉", ...dpShop("128263816"), linkType: "商户页", note: "鄂尔多斯热门火锅备选，冰煮羊、羊排和酸奶饼可点。", tags: ["冰煮羊", "康巴什", "晚餐"] },
-      { id: "shamogai", day: 3, name: "沙漠盖饭", city: "响沙湾", type: "景区", ...dpSearch("沙漠盖饭 响沙湾"), linkType: "点评搜索", note: "景区内餐厅，牛肉盖饭分量和价格反馈较好，适合不想折返找饭。", tags: ["牛肉盖饭", "景区内", "不虚高"] },
-      { id: "laosuiyuan", day: 4, name: "老绥元烧麦", city: "呼和浩特/北京等", type: "烧麦", ...dpShop("90983705"), linkType: "商户页", note: "老字号烧麦路线；若返程实际停大同，建议用点评搜附近同类。", tags: ["羊肉大葱烧麦", "早餐", "连锁"] },
-      { id: "laosuiyuan-bj", day: 4, name: "老绥元烧麦(昌平店)", city: "北京返程", type: "烧麦", ...dpShop("121523404"), linkType: "商户页", note: "接近北京时的备选落点，适合返程太晚不想再找店。", tags: ["返程", "烧麦", "北京"] },
-      { id: "huangqi", day: 4, name: "黄旗手把肉", city: "乌兰察布", type: "羊肉", ...dpSearch("黄旗手把肉 乌兰察布"), linkType: "点评搜索", note: "想补一次原汁原味手把肉可搜这家或同名门店。", tags: ["手把肉", "羊肉", "备选"] },
-      { id: "saihan-dt", day: 4, name: "塞汗部落铁帽烤肉(大同总店)", city: "大同", type: "烤肉", ...dpShop("693547177"), linkType: "商户页", note: "如果返程在大同吃饭，可作为云冈石窟后的烤肉备选。", tags: ["大同", "铁帽烤肉", "云冈附近"] }
+      { id: "wlc-bingzhuyang", day: 0, name: "冰煮羊 / 手把肉", city: "乌兰察布市区", type: "蒙餐", ...dpSearch("乌兰察布 冰煮羊 手把肉"), linkType: "点评搜索", note: "火山返回市区后的晚餐方向，优先看近一周评价、排队和价格。", tags: ["晚餐", "羊肉", "市区"] },
+      { id: "wlc-shaomai", day: 0, name: "烧麦 / 羊杂汤", city: "乌兰察布市区", type: "烧麦", ...dpSearch("乌兰察布 烧麦 羊杂汤"), linkType: "点评搜索", note: "适合早餐或简餐，第二天去黄花沟前也能作为快速补给。", tags: ["早餐", "简餐", "砖茶"] },
+      { id: "wlc-night", day: 0, name: "乌兰察布之夜周边小吃", city: "乌兰察布", type: "小吃", ...dpSearch("乌兰察布之夜 小吃"), linkType: "点评搜索", note: "夜游时按现场动线选择，别为了单店绕太远。", tags: ["夜游", "小吃", "机动"] },
+      { id: "huiteng-mengcan", day: 1, name: "辉腾草原民宿蒙餐", city: "辉腾草原", type: "蒙餐", ...dpSearch("辉腾草原 民宿 蒙餐"), linkType: "点评搜索", note: "住草原民宿时优先问住宿方晚餐和早餐，减少夜间草原路段移动。", tags: ["民宿", "草原", "晚餐"] },
+      { id: "huanghuagou-food", day: 1, name: "黄花沟景区餐饮", city: "黄花沟", type: "景区", ...dpSearch("黄花沟 景区 餐饮"), linkType: "点评搜索", note: "游玩时间长时可就近解决午餐，重点确认景区内外位置。", tags: ["午餐", "景区", "省时间"] },
+      { id: "huiteng-techan", day: 1, name: "奶制品 / 风干牛肉", city: "辉腾草原周边", type: "特产", ...dpSearch("辉腾草原 奶制品 风干牛肉"), linkType: "点评搜索", note: "适合买少量路上吃的补给，注意保质期和车内温度。", tags: ["补给", "奶食", "牛肉干"] },
+      { id: "hhht-shaomai", day: 2, name: "呼和浩特烧麦", city: "呼和浩特", type: "烧麦", ...dpSearch("呼和浩特 烧麦 老店"), linkType: "点评搜索", note: "大昭寺、塞上老街附近选择多，适合早午餐或晚餐前垫肚子。", tags: ["烧麦", "老城", "羊肉大葱"] },
+      { id: "hhht-mengcan", day: 2, name: "蒙餐 / 涮羊肉", city: "呼和浩特", type: "蒙餐", ...dpSearch("呼和浩特 蒙餐 涮羊肉"), linkType: "点评搜索", note: "城市餐饮选择充足，按住宿位置筛选更省时间。", tags: ["晚餐", "蒙餐", "市区"] },
+      { id: "hhht-old-street", day: 2, name: "塞上老街小吃", city: "呼和浩特", type: "小吃", ...dpSearch("塞上老街 小吃 呼和浩特"), linkType: "点评搜索", note: "逛街时顺路吃，适合安排成轻量夜游。", tags: ["老街", "夜游", "小吃"] },
+      { id: "datong-noodle", day: 3, name: "大同刀削面", city: "大同古城", type: "面食", ...dpSearch("大同古城 刀削面"), linkType: "点评搜索", note: "到大同后的稳妥选择，云冈石窟后回古城吃更顺。", tags: ["刀削面", "古城", "晚餐"] },
+      { id: "datong-snack", day: 3, name: "大同古城小吃", city: "大同古城", type: "小吃", ...dpSearch("大同古城 小吃"), linkType: "点评搜索", note: "夜逛古城时补充，注意别排太满影响第二天返京。", tags: ["古城", "夜游", "机动"] },
+      { id: "xuankongsi-food", day: 4, name: "悬空寺周边简餐", city: "浑源 / 悬空寺", type: "景区", ...dpSearch("悬空寺 浑源 简餐"), linkType: "点评搜索", note: "返京日以省时为主，能就近解决就不要为餐厅绕路。", tags: ["返程", "简餐", "景区"] }
     ];
 
     const days = [
       {
         badge: "Day 1 · 5月27日",
         title: "北京 → 乌兰察布",
-        km: "约 410 km",
-        stay: "住察右后旗或乌兰察布市区",
-        theme: "火山地貌",
+        km: "约 4h + 1.5h",
+        stay: "住乌兰察布市区",
+        theme: "乌兰哈达火山 / 乌兰察布之夜",
         image: "assets/day1-volcano.jpg",
-        copy: "早点从北京出发，下午直奔乌兰哈达火山地质公园。建议从南门进入，按 8 号、6 号、3 号火山推进：8 号火山适合捡玛瑙，6 号是火星基地打卡点，3 号适合登顶看全景。",
-        scenes: ["乌兰哈达火山地质公园", "8 号火山捡玛瑙", "6 号火星基地", "3 号火山登顶"],
-        advice: ["午饭尽量在路上解决", "火山风大，带外套和防晒", "晚餐按住宿地二选一"],
+        copy: "26 日先抵达北京。27 日从北京出发去乌兰哈达火山，车程约 4 小时；火山游玩后再去乌兰察布市区，约 1.5 小时。晚上按体力安排乌兰察布之夜，住宿落在市区更方便第二天去黄花沟。",
+        scenes: ["乌兰哈达火山地质公园", "3 号 / 6 号 / 8 号火山", "乌兰察布之夜", "乌兰察布市区"],
+        advice: ["26 日抵京后早点休息", "火山段风大，带外套和防晒", "夜游可机动，不要影响第二天早起"],
         weather: {
-          place: "乌兰察布 / 察右后旗",
+          place: "乌兰察布 / 乌兰哈达",
           temp: "约 21 / 6℃",
           risk: "昼夜温差大",
-          summary: "5 月下旬白天多为春末体感，夜里和火山口风感明显偏冷。草原、火山区域无遮挡，风比市区更强。",
+          summary: "5 月下旬白天多为春末体感，夜里和火山口风感明显偏冷。火山区域无遮挡，风比市区更强。",
           tips: ["带防风外套或薄冲锋衣", "下午防晒，傍晚加衣", "火山拍照注意扬尘和风沙"]
         },
-        reviews: ["泽成·冰煮羊评价较两极：有人认可羊肉新鲜和吃法新奇，也有人反馈价格偏贵、菜量偏小、服务一般。", "乡里乡亲后旗店更偏火山周边实用型餐厅，重点看当天是否营业和排队。", "塞纳奶食适合买特产，但位置可能在居民区，适合顺路而非专门绕行。"]
+        reviews: ["火山到市区还有一段路，晚餐建议放在乌兰察布市区，选择会更多。", "乌兰察布之夜适合当作轻量夜游，若火山耗时较久可以缩短停留。", "餐厅用点评搜索更稳，出发前重点看近期评价和营业时间。"]
       },
       {
         badge: "Day 2 · 5月28日",
-        title: "乌兰察布 → 包头",
-        km: "约 280 km",
-        stay: "住包头",
-        theme: "草原与城市晚餐",
+        title: "乌兰察布市区 → 黄花沟草原 → 辉腾草原",
+        km: "约 1h + 0.5h",
+        stay: "住辉腾草原民宿",
+        theme: "黄花沟草原 / 辉腾草原日落",
         image: "assets/day2-grassland.jpg",
-        copy: "上午去辉腾锡勒草原或黄花沟，看高山草甸和草原景观。下午驱车前往包头，若时间充裕可顺路安排赛罕塔拉城中草原，晚上吃烤肉或稍麦。",
-        scenes: ["辉腾锡勒草原", "黄花沟", "赛罕塔拉城中草原", "包头市区"],
-        advice: ["黄花沟游玩时间较长，和包头晚餐要取舍", "草原天气变化快，备雨具", "铁帽烤肉注意烤盘状态"],
+        copy: "从乌兰察布市区去黄花沟草原约 1 小时，白天把时间留给黄花沟游玩。傍晚转去辉腾草原，约 0.5 小时，重点看日落，晚上住草原民宿。",
+        scenes: ["黄花沟草原", "辉腾草原", "草原日落", "草原民宿"],
+        advice: ["黄花沟游玩时间较长，午餐尽量就近解决", "草原天气变化快，备雨具和外套", "日落前 40 分钟到观景点更从容"],
         weather: {
-          place: "包头 / 草原周边",
-          temp: "约 26 / 10℃",
-          risk: "风大 + 偶有沙尘",
-          summary: "包头 5 月白天升温快，早晚仍偏凉。草原和开阔路段容易有大风，体感会比温度数字更冷。",
+          place: "黄花沟 / 辉腾草原",
+          temp: "约 20 / 5℃",
+          risk: "风大 + 早晚偏冷",
+          summary: "草原和开阔路段容易有大风，傍晚看日落时体感会比温度数字更冷。",
           tips: ["短袖外加薄外套最灵活", "草原段备帽子和墨镜", "遇大风时减少无人机和长时间户外停留"]
         },
-        reviews: ["铁帽烤肉有人觉得有地方特色，羊肉和烤鸡蛋值得试；也有人认为形式接近铁板烧，并提到烤盘掉漆风险。", "沙葱稍麦属于更稳妥的本地小吃路线，适合不想吃重口晚餐时替换。", "四子王蒙餐更适合想补一顿完整蒙餐的人，不一定和当天路线最顺。"]
+        reviews: ["草原民宿晚餐和早餐建议提前问清楚，确认是否需要预订。", "黄花沟景区内外餐饮位置容易混淆，点链接后先看地图距离。", "当天不要再额外加远距离城市餐厅，夜间草原路段少开车更稳。"]
       },
       {
         badge: "Day 3 · 5月29日",
-        title: "包头 → 鄂尔多斯",
-        km: "约 180 km",
-        stay: "住鄂尔多斯",
-        theme: "城市过渡与草原沙漠衔接",
-        image: "assets/day3-desert.jpg",
-        copy: "从包头出发前往鄂尔多斯，车程压力比原西线更低。下午可安排康巴什城区、鄂尔多斯博物馆或成吉思汗陵，晚上在市区吃冰煮羊，为第二天沙漠项目留体力。",
-        scenes: ["康巴什城区", "鄂尔多斯博物馆", "成吉思汗陵", "鄂尔多斯市区"],
-        advice: ["这天适合把节奏放松", "下午景点按抵达时间二选一", "晚餐以鄂尔多斯市区为主更稳"],
+        title: "辉腾草原 → 呼和浩特",
+        km: "约 1.5h",
+        stay: "住呼和浩特市区",
+        theme: "大昭寺 / 塞上老街",
+        image: "assets/day2-grassland.jpg",
+        copy: "从草原出发到呼和浩特约 1.5 小时。这天车程轻，适合把节奏放慢，下午游大昭寺、塞上老街等老城区域，晚上住呼和浩特市区。",
+        scenes: ["大昭寺", "塞上老街", "呼和浩特老城", "市区晚餐"],
+        advice: ["上午从民宿退房后再进城", "大昭寺和塞上老街可步行串联", "住宿选老城或交通方便区域"],
         weather: {
-          place: "鄂尔多斯 / 康巴什",
-          temp: "约 27 / 11℃",
+          place: "呼和浩特",
+          temp: "约 25 / 10℃",
           risk: "日晒强 + 早晚温差",
-          summary: "鄂尔多斯 5 月下旬白天偏晒，早晚仍会转凉。城市和开阔路段风感明显，长时间户外仍要注意补水和防晒。",
-          tips: ["准备防晒和足量饮水", "傍晚加一件薄外套", "博物馆或陵区按开放时间安排"]
+          summary: "呼和浩特 5 月下旬白天适合步行游览，早晚仍会转凉。老城游玩以户外步行为主，注意防晒和补水。",
+          tips: ["准备防晒和足量饮水", "傍晚加一件薄外套", "寺庙和街区按开放时间安排"]
         },
-        reviews: ["泽成冰煮羊适合作为抵达鄂尔多斯后的晚餐备选，建议出发前再看近期排队和评价。", "康巴什城区更适合轻松散步和补给，不建议把下午排得过满。", "成吉思汗陵和博物馆按兴趣二选一即可，避免影响第二天沙漠项目体力。"]
+        reviews: ["呼和浩特餐饮选择多，建议围绕住宿点筛选，不必为单店穿城。", "大昭寺和塞上老街适合连在一起玩，晚饭可安排在老城附近。", "如果前一天草原休息一般，这天可以少排室内外切换，留出补觉时间。"]
       },
       {
         badge: "Day 4 · 5月30日",
-        title: "鄂尔多斯周边",
-        km: "市区往返约 120-180 km",
-        stay: "住鄂尔多斯",
-        theme: "库布齐沙漠 / 响沙湾",
-        image: "assets/day3-desert.jpg",
-        copy: "以鄂尔多斯为落脚点安排库布齐沙漠或响沙湾。可以体验骑骆驼、滑沙、沙漠越野等项目；如果前一天没有去成吉思汗陵，也可把部分时间留给历史文化点。",
-        scenes: ["库布齐沙漠", "响沙湾", "成吉思汗陵", "鄂尔多斯市区"],
-        advice: ["沙漠项目受风和温度影响明显", "手机和相机做好防沙", "景区餐可接受时不用专门绕回市区"],
+        title: "呼和浩特 → 大同",
+        km: "约 2.5h",
+        stay: "住山西大同古城",
+        theme: "云冈石窟 / 大同古城",
+        image: "assets/day5-yungang.jpg",
+        copy: "从呼和浩特到山西大同约 2.5 小时。抵达后优先安排云冈石窟，再回大同古城吃饭和夜游，住宿放在古城附近更方便。",
+        scenes: ["云冈石窟", "大同古城", "华严寺周边", "古城夜景"],
+        advice: ["云冈石窟建议放在白天核心时段", "古城夜游量力而行", "第二天返京，晚上别睡太晚"],
         weather: {
-          place: "鄂尔多斯 / 响沙湾",
-          temp: "约 27 / 11℃",
-          risk: "日晒强 + 沙地温差",
-          summary: "沙漠白天体感偏热，鞋里进沙和设备进沙比温度本身更影响体验。夜间或风起后温度下降明显。",
-          tips: ["穿不怕进沙的鞋，备鞋套更好", "手机相机做好防沙袋", "沙漠项目提前确认是否因风停运"]
+          place: "大同",
+          temp: "约 25 / 7℃",
+          risk: "早晚偏凉",
+          summary: "大同早晚偏凉，白天游石窟和古城比较舒适。石窟区域步行时间不短，建议穿好走的鞋。",
+          tips: ["带薄外套，进石窟也用得上", "穿舒适鞋", "午后注意补水和防晒"]
         },
-        reviews: ["沙漠盖饭的亮点是景区内价格没有明显虚高，牛肉盖饭分量反馈不错。", "如果体力消耗大，晚餐可转鄂尔多斯市区吃冰煮羊。", "沙漠活动建议提前看套票项目，避免现场临时加项超预算。"]
+        reviews: ["云冈石窟比古城更依赖白天光线，建议优先保证石窟时间。", "大同古城晚餐选择多，刀削面和本地小吃都适合做轻量安排。", "这天不要再加太多远郊点，给 31 日返京留体力。"]
       },
       {
         badge: "Day 5 · 5月31日",
-        title: "鄂尔多斯 → 大同 → 北京",
-        km: "约 600 km",
+        title: "大同 → 北京",
+        km: "约 4h",
         stay: "返京",
-        theme: "长途返程与云冈石窟",
+        theme: "悬空寺 / 返京",
         image: "assets/day5-yungang.jpg",
-        copy: "返程车程最长，建议一早出发。中途可在大同稍作停留，看云冈石窟，再返回北京。若当天体力不足，云冈石窟可作为机动项，不要影响夜间安全驾驶。",
-        scenes: ["大同", "云冈石窟", "返京高速", "北京"],
-        advice: ["这天不建议安排复杂餐厅", "云冈石窟按体力机动", "夜间驾驶前留足休息"],
+        copy: "从大同返北京约 4 小时，途中可路过悬空寺。若想进景区，需要给停车、排队和游览留足时间；若返程压力大，可只作远观或直接返京。",
+        scenes: ["悬空寺", "浑源简餐", "返京高速", "北京"],
+        advice: ["这天不建议安排复杂餐厅", "悬空寺按体力和路况机动", "返京前留足休息，避免夜间疲劳驾驶"],
         weather: {
           place: "大同 / 北京返程",
           temp: "大同约 25 / 7℃ · 北京约 29 / 14℃",
@@ -796,7 +1442,7 @@
           summary: "大同早晚偏凉，北京午后更热。返程日跨度大，穿衣按分层处理，比单纯看北京天气更稳。",
           tips: ["车上放薄外套，进石窟也用得上", "午后返京注意补水和防困", "出发前重点看大同、北京两地降雨和大风预警"]
         },
-        reviews: ["老绥元烧麦是老字号连锁思路，但你原计划里的停留地写法不完全一致，实际应按返程城市搜附近门店。", "黄旗手把肉更适合在乌兰察布阶段吃，Day 5 如果绕路不建议强排。", "大同如果临时吃饭，云冈附近可用铁帽烤肉或本地刀削面替代。"]
+        reviews: ["悬空寺是否入内取决于当天人流和返京时间，别让它挤压安全驾驶。", "返程日午餐以顺路、省时为主，浑源或服务区都可以作为机动点。", "北京抵达时间若偏晚，晚餐就近解决即可。"]
       }
     ];
 
@@ -804,7 +1450,6 @@
     const dayImage = document.getElementById("dayImage");
     const dayBadge = document.getElementById("dayBadge");
     const dayTitle = document.getElementById("dayTitle");
-    const dayMeta = document.getElementById("dayMeta");
     const dayCopy = document.getElementById("dayCopy");
     const scenes = document.getElementById("scenes");
     const advice = document.getElementById("advice");
@@ -817,34 +1462,78 @@
     function shopCard(shop) {
       return `
         <article class="shop" data-type="${shop.type}">
-          <div class="shop-head">
-            <h3>${shop.name}</h3>
-            <a class="link" href="${shop.link}" data-app-link="${shop.appLink}" target="_blank" rel="noopener">${shop.linkType}</a>
+          <div class="shop-body">
+            <div class="shop-head">
+              <h3>${shop.name}</h3>
+              <a class="link" href="${shop.link}" data-app-link="${shop.appLink}" target="_blank" rel="noopener">
+                ${shop.linkType}
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 2px;"><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+            <p>${shop.city} · ${shop.note}</p>
           </div>
-          <p>${shop.city} · ${shop.note}</p>
           <div class="tag-row">${shop.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
         </article>
       `;
     }
 
+    function scrollActiveTabIntoView(index) {
+      const activeTab = tabs[index];
+      const dayTabs = document.getElementById("dayTabs");
+      if (activeTab && dayTabs) {
+        activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+
     function renderDay(index) {
-      const day = days[index];
-      dayImage.style.backgroundImage = `url("${day.image}")`;
-      dayBadge.textContent = day.badge;
-      dayTitle.textContent = day.title;
-      dayMeta.innerHTML = [
-        `🚗 ${day.km}`,
-        `🏨 ${day.stay}`,
-        `📍 ${day.theme}`,
-        `🌤 ${day.weather.place} ${day.weather.temp}`,
-        `⚠ ${day.weather.risk}`
-      ].map(item => `<span class="pill">${item}</span>`).join("");
-      dayCopy.textContent = day.copy;
-      scenes.innerHTML = day.scenes.map(item => `<li>${item}</li>`).join("");
-      advice.innerHTML = day.advice.map(item => `<li>${item}</li>`).join("");
-      dayShops.innerHTML = shops.filter(shop => shop.day === index).map(shopCard).join("");
-      reviews.innerHTML = day.reviews.map(item => `<p class="review">${item}</p>`).join("");
-      tabs.forEach(tab => tab.classList.toggle("active", Number(tab.dataset.day) === index));
+      const updateContent = () => {
+        const day = days[index];
+        dayImage.style.backgroundImage = `url("${day.image}")`;
+        dayBadge.textContent = day.badge;
+        dayTitle.textContent = day.title;
+        
+        // Update dashboard values
+        document.getElementById("dashKm").textContent = day.km;
+        document.getElementById("dashStay").textContent = day.stay;
+        document.getElementById("dashTheme").textContent = day.theme;
+        document.getElementById("dashWeather").textContent = `${day.weather.place} ${day.weather.temp}`;
+        
+        // Update hazard banner
+        const alertBanner = document.getElementById("dashAlert");
+        const alertText = document.getElementById("dashAlertText");
+        if (day.weather.risk) {
+          alertText.textContent = day.weather.risk;
+          alertBanner.style.display = "flex";
+        } else {
+          alertBanner.style.display = "none";
+        }
+
+        // Update Scenes & Advice
+        scenes.innerHTML = day.scenes.map(item => `<li>${item}</li>`).join("");
+        advice.innerHTML = day.advice.map(item => `<li>${item}</li>`).join("");
+        
+        // Update Weather Panel
+        document.getElementById("weatherPlace").textContent = day.weather.place;
+        document.getElementById("weatherTemp").textContent = day.weather.temp;
+        document.getElementById("weatherDesc").textContent = day.weather.summary;
+        document.getElementById("weatherTipsList").innerHTML = day.weather.tips.map(item => `<li>${item}</li>`).join("");
+
+        // Update Shops & Reviews
+        dayShops.innerHTML = shops.filter(shop => shop.day === index).map(shopCard).join("");
+        reviews.innerHTML = day.reviews.map(item => `<p class="review">${item}</p>`).join("");
+        
+        // Toggle tabs active class
+        tabs.forEach(tab => tab.classList.toggle("active", Number(tab.dataset.day) === index));
+      };
+
+      if (document.startViewTransition) {
+        document.startViewTransition(updateContent);
+      } else {
+        updateContent();
+      }
+
+      // Scroll tab into view
+      scrollActiveTabIntoView(index);
     }
 
     function renderAllShops(type = "all") {
@@ -852,10 +1541,31 @@
       allShops.innerHTML = filtered.map(shopCard).join("");
     }
 
+    // Tab event listeners
     tabs.forEach(tab => {
       tab.addEventListener("click", () => renderDay(Number(tab.dataset.day)));
     });
 
+    // Horizontal tab scroll indicators (fades)
+    const tabsWrapper = document.getElementById("tabsWrapper");
+    const dayTabs = document.getElementById("dayTabs");
+    function updateScrollIndicators() {
+      if (!dayTabs || !tabsWrapper) return;
+      const scrollLeft = dayTabs.scrollLeft;
+      const scrollWidth = dayTabs.scrollWidth;
+      const clientWidth = dayTabs.clientWidth;
+      
+      tabsWrapper.classList.toggle("scroll-left", scrollLeft > 5);
+      tabsWrapper.classList.toggle("scroll-right", scrollLeft < scrollWidth - clientWidth - 5);
+    }
+    if (dayTabs) {
+      dayTabs.addEventListener("scroll", updateScrollIndicators);
+      window.addEventListener("resize", updateScrollIndicators);
+      // Run once initially
+      setTimeout(updateScrollIndicators, 100);
+    }
+
+    // Shop filters
     filters.forEach(filter => {
       filter.addEventListener("click", () => {
         filters.forEach(item => item.classList.remove("active"));
@@ -864,6 +1574,179 @@
       });
     });
 
+    // Dialog Modal Open/Close Logic
+    const mapTrigger = document.getElementById("mapTrigger");
+    const mapDialog = document.getElementById("mapDialog");
+    const closeDialog = document.getElementById("closeDialog");
+    const dialogBody = mapDialog ? mapDialog.querySelector(".dialog-body") : null;
+    const dialogImg = dialogBody ? dialogBody.querySelector("img") : null;
+
+    if (mapTrigger && mapDialog) {
+      mapTrigger.addEventListener("click", () => {
+        if (dialogBody) dialogBody.classList.remove("zoomed");
+        mapDialog.showModal();
+        document.body.style.overflow = "hidden"; // Prevent scrolling behind
+      });
+
+      const closeMapDialog = () => {
+        mapDialog.close();
+        document.body.style.overflow = "";
+        if (dialogBody) dialogBody.classList.remove("zoomed");
+      };
+
+      closeDialog.addEventListener("click", closeMapDialog);
+      
+      mapDialog.addEventListener("click", (e) => {
+        const wrapper = mapDialog.querySelector(".dialog-wrapper");
+        if (wrapper) {
+          const wrapperRect = wrapper.getBoundingClientRect();
+          const isInWrapper = (e.clientX >= wrapperRect.left && e.clientX <= wrapperRect.right &&
+                               e.clientY >= wrapperRect.top && e.clientY <= wrapperRect.bottom);
+          if (!isInWrapper) {
+            closeMapDialog();
+          }
+        } else {
+          const rect = mapDialog.getBoundingClientRect();
+          const isInDialog = (e.clientX >= rect.left && e.clientX <= rect.right &&
+                              e.clientY >= rect.top && e.clientY <= rect.bottom);
+          if (!isInDialog) {
+            closeMapDialog();
+          }
+        }
+      });
+
+      mapDialog.addEventListener("cancel", () => {
+        document.body.style.overflow = "";
+        if (dialogBody) dialogBody.classList.remove("zoomed");
+      });
+
+      // Zoom & Drag-to-Pan Logic
+      if (dialogBody && dialogImg) {
+        let isDown = false;
+        let startX = 0;
+        let startY = 0;
+        let scrollLeft = 0;
+        let scrollTop = 0;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+
+        const toggleZoom = () => {
+          dialogBody.classList.toggle("zoomed");
+          if (dialogBody.classList.contains("zoomed")) {
+            dialogBody.style.cursor = 'grab';
+            // Smooth scroll to center of zoomed map
+            setTimeout(() => {
+              const scrollX = (dialogBody.scrollWidth - dialogBody.clientWidth) / 2;
+              const scrollY = (dialogBody.scrollHeight - dialogBody.clientHeight) / 2;
+              dialogBody.scrollTo({ left: scrollX, top: scrollY, behavior: 'smooth' });
+            }, 50);
+          } else {
+            dialogBody.style.cursor = 'zoom-in';
+          }
+        };
+
+        dialogBody.addEventListener("mousedown", (e) => {
+          if (e.target !== dialogImg) return;
+          dragStartX = e.clientX;
+          dragStartY = e.clientY;
+          isDragging = false;
+          
+          if (dialogBody.classList.contains("zoomed")) {
+            isDown = true;
+            dialogBody.style.cursor = 'grabbing';
+            startX = e.pageX - dialogBody.offsetLeft;
+            startY = e.pageY - dialogBody.offsetTop;
+            scrollLeft = dialogBody.scrollLeft;
+            scrollTop = dialogBody.scrollTop;
+          }
+        });
+
+        dialogBody.addEventListener("mouseleave", () => {
+          isDown = false;
+          if (dialogBody.classList.contains("zoomed")) {
+            dialogBody.style.cursor = 'grab';
+          }
+        });
+
+        dialogBody.addEventListener("mouseup", (e) => {
+          isDown = false;
+          if (dialogBody.classList.contains("zoomed")) {
+            dialogBody.style.cursor = 'grab';
+          }
+
+          // If they dragged the map, don't toggle zoom on mouseup
+          if (isDragging) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
+
+          // It was a clean click on the image, toggle zoom!
+          if (e.target === dialogImg) {
+            toggleZoom();
+          }
+        });
+
+        dialogBody.addEventListener("mousemove", (e) => {
+          const deltaX = Math.abs(e.clientX - dragStartX);
+          const deltaY = Math.abs(e.clientY - dragStartY);
+          if (deltaX > 5 || deltaY > 5) {
+            isDragging = true;
+          }
+
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - dialogBody.offsetLeft;
+          const y = e.pageY - dialogBody.offsetTop;
+          const walkX = (x - startX) * 1.5; // Drag speed multiplier
+          const walkY = (y - startY) * 1.5;
+          dialogBody.scrollLeft = scrollLeft - walkX;
+          dialogBody.scrollTop = scrollTop - walkY;
+        });
+      }
+    }
+
+    // Scroll Progress bar & Back to Top circle progress
+    const scrollProgress = document.getElementById("scrollProgress");
+    const backToTop = document.getElementById("backToTop");
+    const progressRingCircle = document.querySelector(".progress-ring__circle");
+    
+    if (progressRingCircle) {
+      const radius = progressRingCircle.r.baseVal.value;
+      const circumference = radius * 2 * Math.PI;
+      progressRingCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+      progressRingCircle.style.strokeDashoffset = circumference;
+
+      function setProgress(percent) {
+        const offset = circumference - (percent / 100) * circumference;
+        progressRingCircle.style.strokeDashoffset = offset;
+      }
+
+      window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        
+        if (scrollProgress) {
+          scrollProgress.style.width = `${scrollPercent}%`;
+        }
+        
+        setProgress(scrollPercent);
+
+        if (scrollTop > 300) {
+          backToTop.classList.add("show");
+        } else {
+          backToTop.classList.remove("show");
+        }
+      });
+      
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    // Handle deep linking for Dianping on Mobile
     document.addEventListener("click", (event) => {
       const link = event.target.closest("a[data-app-link]");
       if (!link || !isMobile()) return;

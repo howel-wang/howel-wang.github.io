@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
-  <title id="title">北京到内蒙古 5 日自驾路线</title>
-  <desc id="desc">路线从北京出发，经乌兰察布、包头、鄂尔多斯、大同后返回北京。</desc>
+  <title id="title">北京到乌兰察布、呼和浩特、大同 5 日自驾路线</title>
+  <desc id="desc">路线从北京出发，经乌兰察布、辉腾草原、呼和浩特、大同后返回北京。</desc>
   <defs>
     <linearGradient id="land" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#f7f1e7"/>
@@ -23,27 +23,27 @@
 
   <g fill="none" stroke="#b95a3f" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)">
     <path d="M1095 415 L780 235"/>
-    <path d="M780 235 L525 315"/>
-    <path d="M525 315 L445 478"/>
-    <path d="M445 478 L735 445"/>
+    <path d="M780 235 L690 285"/>
+    <path d="M690 285 L610 340"/>
+    <path d="M610 340 L735 445"/>
     <path d="M735 445 L1095 415"/>
   </g>
   <g fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-dasharray="12 12" opacity=".82">
-    <path d="M1095 415 L780 235 L525 315 L445 478 L735 445 L1095 415"/>
+    <path d="M1095 415 L780 235 L690 285 L610 340 L735 445 L1095 415"/>
   </g>
 
   <g font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif">
     <g filter="url(#shadow)">
       <rect x="24" y="22" width="338" height="78" rx="8" fill="#ffffff" opacity=".96"/>
-      <text x="44" y="58" font-size="22" font-weight="700" fill="#1f2a24">北京到内蒙古 5 日自驾路线</text>
-      <text x="44" y="84" font-size="15" fill="#68746a">北京 · 乌兰察布 · 包头 · 鄂尔多斯 · 大同 · 北京</text>
+      <text x="44" y="58" font-size="22" font-weight="700" fill="#1f2a24">北京到呼和浩特、大同 5 日自驾路线</text>
+      <text x="44" y="84" font-size="15" fill="#68746a">北京 · 乌兰察布 · 辉腾草原 · 呼和浩特 · 大同 · 北京</text>
     </g>
 
     <g transform="translate(1095 415)">
       <circle r="19" fill="#b95a3f" stroke="#fff" stroke-width="4"/>
       <text y="7" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">京</text>
       <rect x="28" y="-28" width="98" height="42" rx="7" fill="#fff" filter="url(#shadow)"/>
-      <text x="42" y="-2" font-size="17" font-weight="700" fill="#1f2a24">1. 北京</text>
+      <text x="42" y="-2" font-size="17" font-weight="700" fill="#1f2a24">1/6. 北京</text>
     </g>
 
     <g transform="translate(780 235)">
@@ -53,18 +53,18 @@
       <text x="40" y="-2" font-size="17" font-weight="700" fill="#1f2a24">2. 乌兰察布</text>
     </g>
 
-    <g transform="translate(525 315)">
+    <g transform="translate(690 285)">
       <circle r="19" fill="#b95a3f" stroke="#fff" stroke-width="4"/>
-      <text y="7" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">包</text>
-      <rect x="24" y="-32" width="100" height="42" rx="7" fill="#fff" filter="url(#shadow)"/>
-      <text x="38" y="-6" font-size="17" font-weight="700" fill="#1f2a24">3. 包头</text>
+      <text y="7" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">草</text>
+      <rect x="-164" y="-30" width="136" height="42" rx="7" fill="#fff" filter="url(#shadow)"/>
+      <text x="-150" y="-4" font-size="17" font-weight="700" fill="#1f2a24">3. 辉腾草原</text>
     </g>
 
-    <g transform="translate(445 478)">
+    <g transform="translate(610 340)">
       <circle r="19" fill="#b95a3f" stroke="#fff" stroke-width="4"/>
-      <text y="7" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">鄂</text>
-      <rect x="26" y="-30" width="132" height="42" rx="7" fill="#fff" filter="url(#shadow)"/>
-      <text x="40" y="-4" font-size="17" font-weight="700" fill="#1f2a24">4. 鄂尔多斯</text>
+      <text y="7" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">呼</text>
+      <rect x="-170" y="28" width="148" height="42" rx="7" fill="#fff" filter="url(#shadow)"/>
+      <text x="-156" y="54" font-size="17" font-weight="700" fill="#1f2a24">4. 呼和浩特</text>
     </g>
 
     <g transform="translate(735 445)">

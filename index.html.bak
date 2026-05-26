@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>北京到乌兰察布、呼和浩特、大同 5.26-5.31 自驾计划</title>
+  <style>
+    :root {
+      --ink: #18201c;
+      --muted: #657067;
+      --line: #dfe5dd;
+      --paper: #fbfaf4;
+      --panel: #ffffff;
+      --grass: #5f8a61;
+      --lava: #b4573d;
+      --sand: #c49450;
+      --lake: #3c7c8c;
+      --night: #293a44;
+      --shadow: 0 16px 40px rgba(41, 58, 68, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(251, 250, 244, .72), rgba(251, 250, 244, .92)),
+        url("assets/hero-inner-mongolia.jpg") center top / cover fixed;
+    }
+
+    a { color: inherit; }
+
+    .hero {
+      min-height: 76vh;
+      display: grid;
+      align-items: end;
+      padding: 32px clamp(18px, 5vw, 72px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 36%;
+      background: linear-gradient(transparent, var(--paper));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1080px;
+      padding-bottom: 7vh;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(12px);
+      color: var(--night);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 22px 0 14px;
+      max-width: 920px;
+      font-size: clamp(42px, 7vw, 88px);
+      line-height: .96;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(17px, 2.4vw, 23px);
+      line-height: 1.6;
+      color: #334139;
+      font-weight: 520;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .stat {
+      min-width: 128px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: 8px;
+      background: rgba(255,255,255,.74);
+      backdrop-filter: blur(12px);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 20px;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto 64px;
+    }
+
+    .route-board {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: -42px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .panel {
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(223, 229, 221, .92);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .route-map {
+      padding: 22px;
+      min-height: 280px;
+    }
+
+    .map-shot {
+      margin: 0;
+    }
+
+    .map-shot img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #eef1ea;
+    }
+
+    .map-shot figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .path {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      padding: 28px 6px 12px;
+    }
+
+    .path::before {
+      content: "";
+      position: absolute;
+      left: 7%;
+      right: 7%;
+      top: 47px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--lava), var(--grass), var(--lake), var(--sand), var(--night));
+      border-radius: 999px;
+    }
+
+    .stop {
+      position: relative;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .dot {
+      width: 18px;
+      height: 18px;
+      margin: 9px auto 12px;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      background: var(--lava);
+      box-shadow: 0 0 0 1px rgba(24,32,28,.16);
+      position: relative;
+      z-index: 1;
+    }
+
+    .stop:nth-child(2) .dot { background: var(--grass); }
+    .stop:nth-child(3) .dot { background: var(--lake); }
+    .stop:nth-child(4) .dot { background: var(--sand); }
+    .stop:nth-child(5) .dot { background: var(--night); }
+    .stop:nth-child(6) .dot { background: var(--lava); }
+
+    .stop b {
+      display: block;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .stop span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .tips {
+      padding: 22px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .tip {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tip:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .tip-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #eef3ea;
+    }
+
+    .tip h3 {
+      margin: 0 0 4px;
+      font-size: 15px;
+    }
+
+    .tip p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .day-tabs {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      margin: 26px 0 18px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      background: rgba(251,250,244,.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .tab {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--night);
+      cursor: pointer;
+      padding: 12px 10px;
+      font: inherit;
+      text-align: left;
+      transition: .18s ease;
+    }
+
+    .tab strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .tab span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .tab.active {
+      background: var(--night);
+      color: #fff;
+      border-color: var(--night);
+    }
+
+    .tab.active span { color: rgba(255,255,255,.72); }
+
+    .day-view {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .day-main {
+      overflow: hidden;
+    }
+
+    .day-image {
+      min-height: 260px;
+      background-position: center;
+      background-size: cover;
+      position: relative;
+    }
+
+    .day-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.42));
+    }
+
+    .day-badge {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      z-index: 1;
+      padding: 10px 12px;
+      border-radius: 7px;
+      background: rgba(255,255,255,.86);
+      font-weight: 800;
+    }
+
+    .day-content {
+      padding: 22px;
+    }
+
+    .day-content h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #f1f4ee;
+      color: #3e4c43;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .copy {
+      color: #3f4a43;
+      line-height: 1.72;
+      font-size: 15px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .mini {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .mini h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+
+    .mini ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .food-panel, .review-panel {
+      padding: 20px;
+    }
+
+    .food-panel h2, .review-panel h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+    }
+
+    .shop-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .shop {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .shop-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 8px;
+    }
+
+    .shop h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .shop p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .link {
+      flex: 0 0 auto;
+      text-decoration: none;
+      padding: 7px 9px;
+      border: 1px solid #d8b782;
+      border-radius: 7px;
+      color: #76501d;
+      background: #fff8ea;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      padding: 5px 7px;
+      border-radius: 999px;
+      background: #f5f1e8;
+      color: #685c49;
+      font-size: 12px;
+    }
+
+    .review {
+      padding: 13px 0;
+      border-top: 1px solid var(--line);
+      color: #3f4a43;
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .review:first-of-type { border-top: 0; padding-top: 0; }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      padding: 9px 12px;
+      cursor: pointer;
+      font: inherit;
+      color: var(--night);
+    }
+
+    .filter.active {
+      background: var(--grass);
+      color: #fff;
+      border-color: var(--grass);
+    }
+
+    .all-shops {
+      margin-top: 24px;
+      padding: 22px;
+    }
+
+    .all-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .footer-note {
+      margin: 24px 0 0;
+      padding: 18px;
+      border: 1px dashed #c8d0c7;
+      border-radius: 8px;
+      color: var(--muted);
+      line-height: 1.6;
+      background: rgba(255,255,255,.76);
+    }
+
+    @media (max-width: 900px) {
+      .route-board, .day-view { grid-template-columns: 1fr; }
+      .day-tabs { grid-template-columns: repeat(2, 1fr); position: static; }
+      .all-grid { grid-template-columns: 1fr 1fr; }
+      .path { grid-template-columns: repeat(3, 1fr); }
+      .path::before { display: none; }
+    }
+
+    @media (max-width: 620px) {
+      .hero { min-height: 70vh; padding: 22px 16px; }
+      main { width: min(100% - 20px, 1180px); }
+      .route-board { margin-top: -24px; }
+      .day-tabs, .mini-grid, .all-grid { grid-template-columns: 1fr; }
+      .day-image { min-height: 210px; }
+      .shop-head { display: grid; }
+      .link { width: max-content; }
+      .section-title { display: block; }
+      .section-title p { margin-top: 6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">2026.05.26 - 05.31 · 北京抵达 · 草原古城小环线</div>
+      <h1>北京到乌兰察布、呼和浩特、大同自驾计划</h1>
+      <p class="lead">26 日抵达北京，27 日起串联乌兰哈达火山、黄花沟草原、辉腾草原日落、呼和浩特老城、大同云冈石窟与悬空寺。页面可按日期切换，餐厅卡片附大众点评跳转。</p>
+      <div class="hero-stats">
+        <div class="stat"><strong>6 天</strong><span>含抵达北京</span></div>
+        <div class="stat"><strong>5 段</strong><span>自驾行程</span></div>
+        <div class="stat"><strong>4 类体验</strong><span>火山 / 草原 / 古城 / 石窟</span></div>
+        <div class="stat"><strong>12 项</strong><span>餐厅与补给备选</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="route-board">
+      <div class="panel route-map">
+        <div class="section-title">
+          <h2>路线总览</h2>
+          <p>路线示意图 · 点下方日期查看当天详情</p>
+        </div>
+        <figure class="map-shot">
+          <img src="assets/inner-mongolia-route-map.svg" alt="北京到乌兰察布、辉腾草原、呼和浩特、大同五日自驾路线示意图" />
+          <figcaption>路线为规划概览连线；实际行车路况、收费站和绕行请以导航 App 实时路线为准。</figcaption>
+        </figure>
+      </div>
+      <aside class="panel tips">
+        <div class="tip">
+          <div class="tip-icon">⏱</div>
+          <div><h3>早出发优先</h3><p>Day 1 和 Day 5 车程较长，建议把夜游和晚餐作为机动项，不要压太满。</p></div>
+        </div>
+        <div class="tip">
+          <div class="tip-icon">⛰</div>
+          <div><h3>火山顺序</h3><p>乌兰哈达建议南门进入，按 8 号、6 号、3 号火山组织动线。</p></div>
+        </div>
+        <div class="tip">
+          <div class="tip-icon">🔎</div>
+          <div><h3>点评链接说明</h3><p>餐厅以大众点评搜索为主，避免误指门店；出发前再看营业时间和近期评价。</p></div>
+        </div>
+        <div class="tip">
+          <div class="tip-icon">🌤</div>
+          <div><h3>天气说明</h3><p>每日天气为 5 月历史气候参考，出发前 3 天请再看实时预报和大风、沙尘、降雨预警。</p></div>
+        </div>
+      </aside>
+    </section>
+
+    <nav class="day-tabs" aria-label="日期切换">
+      <button class="tab active" data-day="0"><strong>5月27日</strong><span>北京 → 乌兰察布</span></button>
+      <button class="tab" data-day="1"><strong>5月28日</strong><span>乌兰察布 → 辉腾草原</span></button>
+      <button class="tab" data-day="2"><strong>5月29日</strong><span>辉腾草原 → 呼和浩特</span></button>
+      <button class="tab" data-day="3"><strong>5月30日</strong><span>呼和浩特 → 大同</span></button>
+      <button class="tab" data-day="4"><strong>5月31日</strong><span>大同 → 北京</span></button>
+    </nav>
+
+    <section class="day-view">
+      <article class="panel day-main">
+        <div class="day-image" id="dayImage"><div class="day-badge" id="dayBadge"></div></div>
+        <div class="day-content">
+          <h2 id="dayTitle"></h2>
+          <div class="meta" id="dayMeta"></div>
+          <p class="copy" id="dayCopy"></p>
+          <div class="mini-grid">
+            <div class="mini"><h3>景点重点</h3><ul id="scenes"></ul></div>
+            <div class="mini"><h3>当天建议</h3><ul id="advice"></ul></div>
+          </div>
+        </div>
+      </article>
+
+      <aside class="side-stack">
+        <section class="panel food-panel">
+          <h2>当天餐厅</h2>
+          <div class="shop-list" id="dayShops"></div>
+        </section>
+        <section class="panel review-panel">
+          <h2>评价与避坑</h2>
+          <div id="reviews"></div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="panel all-shops">
+      <div class="section-title">
+        <h2>全部店铺索引</h2>
+        <p>可按类型筛选，出发前建议再次确认营业时间和近期评分</p>
+      </div>
+      <div class="filter-bar" id="filters">
+        <button class="filter active" data-filter="all">全部</button>
+        <button class="filter" data-filter="蒙餐">蒙餐</button>
+        <button class="filter" data-filter="烧麦">烧麦</button>
+        <button class="filter" data-filter="小吃">小吃</button>
+        <button class="filter" data-filter="面食">面食</button>
+        <button class="filter" data-filter="特产">特产</button>
+        <button class="filter" data-filter="景区">景区</button>
+      </div>
+      <div class="all-grid" id="allShops"></div>
+      <p class="footer-note">大众点评页面可能要求在 App 内查看完整电话、地址、团购和实时排队信息。本页的链接用于快速跳转检索，不替代出发前核对。</p>
+    </section>
+  </main>
+
+  <script>
+    const shopSearch = (keyword) => `https://www.dianping.com/search/keyword/0/10_${encodeURIComponent(keyword)}`;
+    const dpShop = (shopId) => ({
+      link: `https://m.dianping.com/shop/${shopId}`,
+      appLink: `dianping://shopinfo?id=${encodeURIComponent(shopId)}`
+    });
+    const dpSearch = (keyword) => ({
+      link: shopSearch(keyword),
+      appLink: `dianping://searchshoplist?keyword=${encodeURIComponent(keyword)}`
+    });
+
+    const shops = [
+      { id: "wlc-bingzhuyang", day: 0, name: "冰煮羊 / 手把肉", city: "乌兰察布市区", type: "蒙餐", ...dpSearch("乌兰察布 冰煮羊 手把肉"), linkType: "点评搜索", note: "火山返回市区后的晚餐方向，优先看近一周评价、排队和价格。", tags: ["晚餐", "羊肉", "市区"] },
+      { id: "wlc-shaomai", day: 0, name: "烧麦 / 羊杂汤", city: "乌兰察布市区", type: "烧麦", ...dpSearch("乌兰察布 烧麦 羊杂汤"), linkType: "点评搜索", note: "适合早餐或简餐，第二天去黄花沟前也能作为快速补给。", tags: ["早餐", "简餐", "砖茶"] },
+      { id: "wlc-night", day: 0, name: "乌兰察布之夜周边小吃", city: "乌兰察布", type: "小吃", ...dpSearch("乌兰察布之夜 小吃"), linkType: "点评搜索", note: "夜游时按现场动线选择，别为了单店绕太远。", tags: ["夜游", "小吃", "机动"] },
+      { id: "huiteng-mengcan", day: 1, name: "辉腾草原民宿蒙餐", city: "辉腾草原", type: "蒙餐", ...dpSearch("辉腾草原 民宿 蒙餐"), linkType: "点评搜索", note: "住草原民宿时优先问住宿方晚餐和早餐，减少夜间草原路段移动。", tags: ["民宿", "草原", "晚餐"] },
+      { id: "huanghuagou-food", day: 1, name: "黄花沟景区餐饮", city: "黄花沟", type: "景区", ...dpSearch("黄花沟 景区 餐饮"), linkType: "点评搜索", note: "游玩时间长时可就近解决午餐，重点确认景区内外位置。", tags: ["午餐", "景区", "省时间"] },
+      { id: "huiteng-techan", day: 1, name: "奶制品 / 风干牛肉", city: "辉腾草原周边", type: "特产", ...dpSearch("辉腾草原 奶制品 风干牛肉"), linkType: "点评搜索", note: "适合买少量路上吃的补给，注意保质期和车内温度。", tags: ["补给", "奶食", "牛肉干"] },
+      { id: "hhht-shaomai", day: 2, name: "呼和浩特烧麦", city: "呼和浩特", type: "烧麦", ...dpSearch("呼和浩特 烧麦 老店"), linkType: "点评搜索", note: "大昭寺、塞上老街附近选择多，适合早午餐或晚餐前垫肚子。", tags: ["烧麦", "老城", "羊肉大葱"] },
+      { id: "hhht-mengcan", day: 2, name: "蒙餐 / 涮羊肉", city: "呼和浩特", type: "蒙餐", ...dpSearch("呼和浩特 蒙餐 涮羊肉"), linkType: "点评搜索", note: "城市餐饮选择充足，按住宿位置筛选更省时间。", tags: ["晚餐", "蒙餐", "市区"] },
+      { id: "hhht-old-street", day: 2, name: "塞上老街小吃", city: "呼和浩特", type: "小吃", ...dpSearch("塞上老街 小吃 呼和浩特"), linkType: "点评搜索", note: "逛街时顺路吃，适合安排成轻量夜游。", tags: ["老街", "夜游", "小吃"] },
+      { id: "datong-noodle", day: 3, name: "大同刀削面", city: "大同古城", type: "面食", ...dpSearch("大同古城 刀削面"), linkType: "点评搜索", note: "到大同后的稳妥选择，云冈石窟后回古城吃更顺。", tags: ["刀削面", "古城", "晚餐"] },
+      { id: "datong-snack", day: 3, name: "大同古城小吃", city: "大同古城", type: "小吃", ...dpSearch("大同古城 小吃"), linkType: "点评搜索", note: "夜逛古城时补充，注意别排太满影响第二天返京。", tags: ["古城", "夜游", "机动"] },
+      { id: "xuankongsi-food", day: 4, name: "悬空寺周边简餐", city: "浑源 / 悬空寺", type: "景区", ...dpSearch("悬空寺 浑源 简餐"), linkType: "点评搜索", note: "返京日以省时为主，能就近解决就不要为餐厅绕路。", tags: ["返程", "简餐", "景区"] }
+    ];
+
+    const days = [
+      {
+        badge: "Day 1 · 5月27日",
+        title: "北京 → 乌兰察布",
+        km: "约 4h + 1.5h",
+        stay: "住乌兰察布市区",
+        theme: "乌兰哈达火山 / 乌兰察布之夜",
+        image: "assets/day1-volcano.jpg",
+        copy: "26 日先抵达北京。27 日从北京出发去乌兰哈达火山，车程约 4 小时；火山游玩后再去乌兰察布市区，约 1.5 小时。晚上按体力安排乌兰察布之夜，住宿落在市区更方便第二天去黄花沟。",
+        scenes: ["乌兰哈达火山地质公园", "3 号 / 6 号 / 8 号火山", "乌兰察布之夜", "乌兰察布市区"],
+        advice: ["26 日抵京后早点休息", "火山段风大，带外套和防晒", "夜游可机动，不要影响第二天早起"],
+        weather: {
+          place: "乌兰察布 / 乌兰哈达",
+          temp: "约 21 / 6℃",
+          risk: "昼夜温差大",
+          summary: "5 月下旬白天多为春末体感，夜里和火山口风感明显偏冷。火山区域无遮挡，风比市区更强。",
+          tips: ["带防风外套或薄冲锋衣", "下午防晒，傍晚加衣", "火山拍照注意扬尘和风沙"]
+        },
+        reviews: ["火山到市区还有一段路，晚餐建议放在乌兰察布市区，选择会更多。", "乌兰察布之夜适合当作轻量夜游，若火山耗时较久可以缩短停留。", "餐厅用点评搜索更稳，出发前重点看近期评价和营业时间。"]
+      },
+      {
+        badge: "Day 2 · 5月28日",
+        title: "乌兰察布市区 → 黄花沟草原 → 辉腾草原",
+        km: "约 1h + 0.5h",
+        stay: "住辉腾草原民宿",
+        theme: "黄花沟草原 / 辉腾草原日落",
+        image: "assets/day2-grassland.jpg",
+        copy: "从乌兰察布市区去黄花沟草原约 1 小时，白天把时间留给黄花沟游玩。傍晚转去辉腾草原，约 0.5 小时，重点看日落，晚上住草原民宿。",
+        scenes: ["黄花沟草原", "辉腾草原", "草原日落", "草原民宿"],
+        advice: ["黄花沟游玩时间较长，午餐尽量就近解决", "草原天气变化快，备雨具和外套", "日落前 40 分钟到观景点更从容"],
+        weather: {
+          place: "黄花沟 / 辉腾草原",
+          temp: "约 20 / 5℃",
+          risk: "风大 + 早晚偏冷",
+          summary: "草原和开阔路段容易有大风，傍晚看日落时体感会比温度数字更冷。",
+          tips: ["短袖外加薄外套最灵活", "草原段备帽子和墨镜", "遇大风时减少无人机和长时间户外停留"]
+        },
+        reviews: ["草原民宿晚餐和早餐建议提前问清楚，确认是否需要预订。", "黄花沟景区内外餐饮位置容易混淆，点链接后先看地图距离。", "当天不要再额外加远距离城市餐厅，夜间草原路段少开车更稳。"]
+      },
+      {
+        badge: "Day 3 · 5月29日",
+        title: "辉腾草原 → 呼和浩特",
+        km: "约 1.5h",
+        stay: "住呼和浩特市区",
+        theme: "大昭寺 / 塞上老街",
+        image: "assets/day2-grassland.jpg",
+        copy: "从草原出发到呼和浩特约 1.5 小时。这天车程轻，适合把节奏放慢，下午游大昭寺、塞上老街等老城区域，晚上住呼和浩特市区。",
+        scenes: ["大昭寺", "塞上老街", "呼和浩特老城", "市区晚餐"],
+        advice: ["上午从民宿退房后再进城", "大昭寺和塞上老街可步行串联", "住宿选老城或交通方便区域"],
+        weather: {
+          place: "呼和浩特",
+          temp: "约 25 / 10℃",
+          risk: "日晒强 + 早晚温差",
+          summary: "呼和浩特 5 月下旬白天适合步行游览，早晚仍会转凉。老城游玩以户外步行为主，注意防晒和补水。",
+          tips: ["准备防晒和足量饮水", "傍晚加一件薄外套", "寺庙和街区按开放时间安排"]
+        },
+        reviews: ["呼和浩特餐饮选择多，建议围绕住宿点筛选，不必为单店穿城。", "大昭寺和塞上老街适合连在一起玩，晚饭可安排在老城附近。", "如果前一天草原休息一般，这天可以少排室内外切换，留出补觉时间。"]
+      },
+      {
+        badge: "Day 4 · 5月30日",
+        title: "呼和浩特 → 大同",
+        km: "约 2.5h",
+        stay: "住山西大同古城",
+        theme: "云冈石窟 / 大同古城",
+        image: "assets/day5-yungang.jpg",
+        copy: "从呼和浩特到山西大同约 2.5 小时。抵达后优先安排云冈石窟，再回大同古城吃饭和夜游，住宿放在古城附近更方便。",
+        scenes: ["云冈石窟", "大同古城", "华严寺周边", "古城夜景"],
+        advice: ["云冈石窟建议放在白天核心时段", "古城夜游量力而行", "第二天返京，晚上别睡太晚"],
+        weather: {
+          place: "大同",
+          temp: "约 25 / 7℃",
+          risk: "早晚偏凉",
+          summary: "大同早晚偏凉，白天游石窟和古城比较舒适。石窟区域步行时间不短，建议穿好走的鞋。",
+          tips: ["带薄外套，进石窟也用得上", "穿舒适鞋", "午后注意补水和防晒"]
+        },
+        reviews: ["云冈石窟比古城更依赖白天光线，建议优先保证石窟时间。", "大同古城晚餐选择多，刀削面和本地小吃都适合做轻量安排。", "这天不要再加太多远郊点，给 31 日返京留体力。"]
+      },
+      {
+        badge: "Day 5 · 5月31日",
+        title: "大同 → 北京",
+        km: "约 4h",
+        stay: "返京",
+        theme: "悬空寺 / 返京",
+        image: "assets/day5-yungang.jpg",
+        copy: "从大同返北京约 4 小时，途中可路过悬空寺。若想进景区，需要给停车、排队和游览留足时间；若返程压力大，可只作远观或直接返京。",
+        scenes: ["悬空寺", "浑源简餐", "返京高速", "北京"],
+        advice: ["这天不建议安排复杂餐厅", "悬空寺按体力和路况机动", "返京前留足休息，避免夜间疲劳驾驶"],
+        weather: {
+          place: "大同 / 北京返程",
+          temp: "大同约 25 / 7℃ · 北京约 29 / 14℃",
+          risk: "长途驾驶 + 午后升温",
+          summary: "大同早晚偏凉，北京午后更热。返程日跨度大，穿衣按分层处理，比单纯看北京天气更稳。",
+          tips: ["车上放薄外套，进石窟也用得上", "午后返京注意补水和防困", "出发前重点看大同、北京两地降雨和大风预警"]
+        },
+        reviews: ["悬空寺是否入内取决于当天人流和返京时间，别让它挤压安全驾驶。", "返程日午餐以顺路、省时为主，浑源或服务区都可以作为机动点。", "北京抵达时间若偏晚，晚餐就近解决即可。"]
+      }
+    ];
+
+    const tabs = document.querySelectorAll(".tab");
+    const dayImage = document.getElementById("dayImage");
+    const dayBadge = document.getElementById("dayBadge");
+    const dayTitle = document.getElementById("dayTitle");
+    const dayMeta = document.getElementById("dayMeta");
+    const dayCopy = document.getElementById("dayCopy");
+    const scenes = document.getElementById("scenes");
+    const advice = document.getElementById("advice");
+    const dayShops = document.getElementById("dayShops");
+    const reviews = document.getElementById("reviews");
+    const allShops = document.getElementById("allShops");
+    const filters = document.querySelectorAll(".filter");
+    const isMobile = () => /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+
+    function shopCard(shop) {
+      return `
+        <article class="shop" data-type="${shop.type}">
+          <div class="shop-head">
+            <h3>${shop.name}</h3>
+            <a class="link" href="${shop.link}" data-app-link="${shop.appLink}" target="_blank" rel="noopener">${shop.linkType}</a>
+          </div>
+          <p>${shop.city} · ${shop.note}</p>
+          <div class="tag-row">${shop.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
+        </article>
+      `;
+    }
+
+    function renderDay(index) {
+      const day = days[index];
+      dayImage.style.backgroundImage = `url("${day.image}")`;
+      dayBadge.textContent = day.badge;
+      dayTitle.textContent = day.title;
+      dayMeta.innerHTML = [
+        `🚗 ${day.km}`,
+        `🏨 ${day.stay}`,
+        `📍 ${day.theme}`,
+        `🌤 ${day.weather.place} ${day.weather.temp}`,
+        `⚠ ${day.weather.risk}`
+      ].map(item => `<span class="pill">${item}</span>`).join("");
+      dayCopy.textContent = day.copy;
+      scenes.innerHTML = day.scenes.map(item => `<li>${item}</li>`).join("");
+      advice.innerHTML = day.advice.map(item => `<li>${item}</li>`).join("");
+      dayShops.innerHTML = shops.filter(shop => shop.day === index).map(shopCard).join("");
+      reviews.innerHTML = day.reviews.map(item => `<p class="review">${item}</p>`).join("");
+      tabs.forEach(tab => tab.classList.toggle("active", Number(tab.dataset.day) === index));
+    }
+
+    function renderAllShops(type = "all") {
+      const filtered = type === "all" ? shops : shops.filter(shop => shop.type === type);
+      allShops.innerHTML = filtered.map(shopCard).join("");
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => renderDay(Number(tab.dataset.day)));
+    });
+
+    filters.forEach(filter => {
+      filter.addEventListener("click", () => {
+        filters.forEach(item => item.classList.remove("active"));
+        filter.classList.add("active");
+        renderAllShops(filter.dataset.filter);
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest("a[data-app-link]");
+      if (!link || !isMobile()) return;
+
+      event.preventDefault();
+      const fallbackUrl = link.href;
+      const openedAt = Date.now();
+      window.location.href = link.dataset.appLink;
+
+      window.setTimeout(() => {
+        if (Date.now() - openedAt < 1600 && document.visibilityState === "visible") {
+          window.location.href = fallbackUrl;
+        }
+      }, 1200);
+    });
+
+    renderDay(0);
+    renderAllShops();
+  </script>
+</body>
+</html>
